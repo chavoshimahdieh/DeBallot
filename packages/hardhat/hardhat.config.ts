@@ -1,6 +1,11 @@
 import * as dotenv from "dotenv";
 dotenv.config();
 import { HardhatUserConfig } from "hardhat/config";
+import fs from "fs";
+import "@nomicfoundation/hardhat-toolbox";
+import "@nomicfoundation/hardhat-foundry";
+import "@truffle/dashboard-hardhat-plugin";
+import "hardhat-preprocessor";
 import "@nomicfoundation/hardhat-ethers";
 import "@nomicfoundation/hardhat-chai-matchers";
 import "@typechain/hardhat";
@@ -19,9 +24,25 @@ const deployerPrivateKey =
 // If not set, it uses ours Etherscan default API key.
 const etherscanApiKey = process.env.ETHERSCAN_API_KEY || "DNXJA8RX2Q3VZ4URQIWP7Z68CJXQZSC6AW";
 
-const config: HardhatUserConfig = {
+function getRemappings() {
+  return fs
+    .readFileSync("remappings.txt", "utf8")
+    .split("\n")
+    .filter(Boolean)
+    .map((line: string) => line.trim().split("="));
+}
+
+interface MyHardhatUserConfig extends HardhatUserConfig {
+  preprocess?: {
+    eachLine: (_hre: any) => {
+      transform: (line: string) => string;
+    };
+  };
+}
+
+const config: MyHardhatUserConfig = {
   solidity: {
-    version: "0.8.17",
+    version: "0.8.26",
     settings: {
       optimizer: {
         enabled: true,
@@ -118,6 +139,19 @@ const config: HardhatUserConfig = {
       url: "https://sepolia.publicgoods.network",
       accounts: [deployerPrivateKey],
     },
+    shibarium: {
+      url: "https://rpc.shibrpc.com",
+      accounts: [deployerPrivateKey],
+      chainId: 157,
+    },
+    "crossfi-testnet": {
+      url: "https://rpc.testnet.ms",
+      accounts: [deployerPrivateKey],
+      chainId: 4157,
+    },
+    "truffle-dashboard": {
+      url: "http://localhost:24012/rpc",
+    },
   },
   // configuration for harhdat-verify plugin
   etherscan: {
@@ -131,6 +165,21 @@ const config: HardhatUserConfig = {
   },
   sourcify: {
     enabled: false,
+  },
+  preprocess: {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    eachLine: (_hre: any) => ({
+      transform: (line: string) => {
+        if (line.match(/^\s*import /i)) {
+          getRemappings().forEach(([find, replace]) => {
+            if (line.match(find)) {
+              line = line.replace(find, replace);
+            }
+          });
+        }
+        return line;
+      },
+    }),
   },
 };
 

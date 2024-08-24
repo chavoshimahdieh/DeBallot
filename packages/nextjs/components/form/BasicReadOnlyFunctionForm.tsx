@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { InheritanceTooltip } from "./InheritanceTooltip";
-import { Abi, AbiFunction } from "abitype";
+import { Abi } from "abitype";
 import { Address } from "viem";
 import { useReadContract } from "wagmi";
 import {
@@ -13,33 +12,36 @@ import {
   getParsedContractFunctionArgs,
   transformAbiFunction,
 } from "~~/app/debug/_components/contract";
+import { InheritanceTooltip } from "~~/app/debug/_components/contract/InheritanceTooltip";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
 import { getParsedError, notification } from "~~/utils/scaffold-eth";
 import { formatParamName } from "~~/utils/scaffold-eth/formatParamName";
+import { getAbiFunction } from "~~/utils/scaffold-eth/getAbiFunction";
 
-type ReadOnlyFunctionFormProps = {
-  contractAddress: Address;
-  abiFunction: AbiFunction;
+type BasicReadOnlyFunctionFormProps = {
+  contract: any;
+  name: string;
   inheritedFrom?: string;
   abi: Abi;
   formatName?: boolean;
 };
 
-export const ReadOnlyFunctionForm = ({
-  contractAddress,
-  abiFunction,
+export const BasicReadOnlyFunctionForm = ({
+  contract,
+  name,
   inheritedFrom,
   abi,
   formatName = true,
-}: ReadOnlyFunctionFormProps) => {
+}: BasicReadOnlyFunctionFormProps) => {
+  const abiFunction = getAbiFunction(contract, name);
   const [form, setForm] = useState<Record<string, any>>(() => getInitialFormState(abiFunction));
   const [result, setResult] = useState<unknown>();
   const { targetNetwork } = useTargetNetwork();
 
   const { isFetching, refetch, error } = useReadContract({
-    address: contractAddress,
-    functionName: abiFunction.name,
-    abi: abi,
+    address: contract.addres as Address,
+    functionName: name,
+    abi: contract.abi,
     args: getParsedContractFunctionArgs(form),
     chainId: targetNetwork.id,
     query: {

@@ -16,6 +16,7 @@ import {
 import { IntegerInput } from "~~/components/scaffold-eth";
 import { useTransactor } from "~~/hooks/scaffold-eth";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth/useTargetNetwork";
+import { formatParamName } from "~~/utils/scaffold-eth/formatParamName";
 
 type WriteOnlyFunctionFormProps = {
   abi: Abi;
@@ -23,6 +24,7 @@ type WriteOnlyFunctionFormProps = {
   onChange: () => void;
   contractAddress: Address;
   inheritedFrom?: string;
+  formatName?: boolean;
 };
 
 export const WriteOnlyFunctionForm = ({
@@ -31,6 +33,7 @@ export const WriteOnlyFunctionForm = ({
   onChange,
   contractAddress,
   inheritedFrom,
+  formatName = true,
 }: WriteOnlyFunctionFormProps) => {
   const [form, setForm] = useState<Record<string, any>>(() => getInitialFormState(abiFunction));
   const [txValue, setTxValue] = useState<string | bigint>("");
@@ -91,7 +94,7 @@ export const WriteOnlyFunctionForm = ({
     <div className="py-5 space-y-3 first:pt-0 last:pb-1">
       <div className={`flex gap-3 ${zeroInputs ? "flex-row justify-between items-center" : "flex-col"}`}>
         <p className="font-medium my-0 break-words">
-          {abiFunction.name}
+          {formatName ? formatParamName(abiFunction.name) : abiFunction.name}
           <InheritanceTooltip inheritedFrom={inheritedFrom} />
         </p>
         {inputs}
