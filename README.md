@@ -1,39 +1,32 @@
-# 🏗 Scaffold-ETH 2
+# DeBallot
 
-<h4 align="center">
-  <a href="https://docs.scaffoldeth.io">Documentation</a> |
-  <a href="https://scaffoldeth.io">Website</a>
-</h4>
+DeBallot is a decentralized voting system that leverages Zero-Knowledge Proofs (ZKPs) to ensure secure, private, and transparent elections.
 
-🧪 An open-source, up-to-date toolkit for building decentralized applications (dapps) on the Ethereum blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
+---
 
-⚙️ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, and Typescript.
+DeBallot is designed to revolutionize voting by offering a secure and private decentralized system. By harnessing the power of blockchain and ZKPs, DeBallot ensures that voters can cast their ballots anonymously while maintaining the integrity and transparency of the election process. This platform is scalable and adaptable for various types of elections, making it ideal for organizations and governments seeking a tamper-proof voting solution."
 
-- ✅ **Contract Hot Reload**: Your frontend auto-adapts to your smart contract as you edit it.
-- 🪝 **[Custom hooks](https://docs.scaffoldeth.io/hooks/)**: Collection of React hooks wrapper around [wagmi](https://wagmi.sh/) to simplify interactions with smart contracts with typescript autocompletion.
-- 🧱 [**Components**](https://docs.scaffoldeth.io/components/): Collection of common web3 components to quickly build your frontend.
-- 🔥 **Burner Wallet & Local Faucet**: Quickly test your application with a burner wallet and local faucet.
-- 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Ethereum network.
-
-![Debug Contracts tab](https://github.com/scaffold-eth/scaffold-eth-2/assets/55535804/b237af0c-5027-4849-a5c1-2e31495cccb1)
+How It's Made: "DeBallot is built on a robust blockchain framework, utilizing smart contracts to manage the voting process. The integration of Zero-Knowledge Proofs (ZKPs) is key, allowing voters to prove their eligibility without revealing their identity or vote. Advanced cryptographic techniques secure the voting data, while the decentralized nature of the platform ensures transparency and resistance to manipulation. DeBallot combines cutting-edge technology with a user-friendly interface, making it accessible and reliable for all types of elections.
 
 ## Requirements
 
 Before you begin, you need to install the following tools:
 
-- [Node (>= v18.17)](https://nodejs.org/en/download/)
+- [Node (v20 LTS)](https://nodejs.org/en/download/)
 - Yarn ([v1](https://classic.yarnpkg.com/en/docs/install/) or [v2+](https://yarnpkg.com/getting-started/install))
 - [Git](https://git-scm.com/downloads)
+- [Rust](https://rustup.rs/)
+- [Foundry](https://book.getfoundry.sh/getting-started/installation)
 
 ## Quickstart
 
-To get started with Scaffold-ETH 2, follow the steps below:
+To get started with Rent Hub, follow the steps below:
 
 1. Clone this repo & install dependencies
 
 ```
-git clone https://github.com/scaffold-eth/scaffold-eth-2.git
-cd scaffold-eth-2
+git clone git@github.com:0xSooki/se-2-foundry.git
+cd se-2
 yarn install
 ```
 
@@ -43,7 +36,15 @@ yarn install
 yarn chain
 ```
 
-This command starts a local Ethereum network using Hardhat. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in `hardhat.config.ts`.
+or
+
+```
+anvil
+```
+
+or
+
+This command starts a local Ethereum network using Foundry. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in the `Makefile`.
 
 3. On a second terminal, deploy the test contract:
 
@@ -59,23 +60,84 @@ This command deploys a test smart contract to the local network. The contract is
 yarn start
 ```
 
-Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the `Debug Contracts` page. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
+Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the contract component or the example ui in the frontend. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
 
-**What's next**:
+Run smart contract test with `yarn hardhat:test`
 
 - Edit your smart contract `YourContract.sol` in `packages/hardhat/contracts`
-- Edit your frontend homepage at `packages/nextjs/app/page.tsx`. For guidance on [routing](https://nextjs.org/docs/app/building-your-application/routing/defining-routes) and configuring [pages/layouts](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts) checkout the Next.js documentation.
+- Edit your frontend in `packages/nextjs/pages`
 - Edit your deployment scripts in `packages/hardhat/deploy`
-- Edit your smart contract test in: `packages/hardhat/test`. To run test use `yarn hardhat:test`
 
-## Documentation
+## Deploying your Smart Contracts to a Live Network
 
-Visit our [docs](https://docs.scaffoldeth.io) to learn how to start building with Scaffold-ETH 2.
+Once you are ready to deploy your smart contracts, there are a few things you need to adjust.
 
-To know more about its features, check out our [website](https://scaffoldeth.io).
+1. Select the network
 
-## Contributing to Scaffold-ETH 2
+Instead of `yarn deploy` we will be using `yarn tdeploy` where the t stands for truffle as we will be using the truffle dashboard for deploying our contracts. You can change the defaultNetwork in `packages/hardhat/hardhat.config.ts.`
 
-We welcome contributions to Scaffold-ETH 2!
+Check the `hardhat.config.ts` for the networks that are pre-configured. You can also add other network settings to the `hardhat.config.ts file`. Here are the [Alchemy docs](https://docs.alchemy.com/docs/how-to-add-alchemy-rpc-endpoints-to-metamask) for information on specific networks.
 
-Please see [CONTRIBUTING.MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for more information and guidelines for contributing to Scaffold-ETH 2.
+2. Start a truffle dashboard using the following command:
+
+```
+yarn dashboard
+```
+
+This will start the truffle dashboard where we will be able to deploy our smart contracts without having to copy our private keys anywhere. Run the command below to send the deployment request to our dashboard
+
+```
+yarn tdeploy
+```
+
+This will run our hardhat deploy scripts & forward it to the dasboard for additional signatures. The deployer account (the one with you sign in the truffle dashboard) is the account that will deploy your contracts. Additionally, the deployer account will be used to execute any function calls that are part of your deployment script.
+
+3. Verify your smart contract
+
+You can verify your smart contract on Etherscan by running:
+
+```
+yarn verify --network network_name <CONTRACT_ADDRESS> <CONSTRUCTOR_ARGS>
+```
+
+## Deploying your NextJS App
+
+Run `yarn vercel` and follow the steps to deploy to Vercel. Once you log in (email, github, etc), the default options should work. It'll give you a public URL.
+
+If you want to redeploy to the same production URL you can run `yarn vercel --prod`. If you omit the `--prod` flag it will deploy it to a preview/test URL.
+
+**Make sure your `packages/nextjs/scaffold.config.ts` file has the values you need.**
+
+**Hint**: We recommend connecting the project GitHub repo to Vercel so you the gets automatically deployed when pushing to `main`
+
+## Disabling type and linting error checks
+
+> **Hint**
+> Typescript helps you catch errors at compile time, which can save time and improve code quality, but can be challenging for those who are new to the language or who are used to the more dynamic nature of JavaScript. Below are the steps to disable type & lint check at different levels
+
+### Disabling commit checks
+
+We run `pre-commit` [git hook](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks) which lints the staged files and don't let you commit if there is an linting error.
+
+To disable this, go to `.husky/pre-commit` file and comment out `yarn lint-staged --verbose`
+
+```diff
+- yarn lint-staged --verbose
++ # yarn lint-staged --verbose
+```
+
+### Deploying to Vercel without any checks
+
+Vercel by default runs types and lint checks while developing `build` and deployment fails if there is a types or lint error.
+
+To ignore types and lint error checks while deploying, use :
+
+```shell
+yarn vercel:yolo
+```
+
+### Disabling Github Workflow
+
+We have github workflow setup checkout `.github/workflows/lint.yaml` which runs types and lint error checks every time code is **pushed** to `main` branch or **pull request** is made to `main` branch
+
+To disable it, **delete `.github` directory**
