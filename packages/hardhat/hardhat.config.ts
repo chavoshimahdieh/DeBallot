@@ -150,7 +150,17 @@ const config: MyHardhatUserConfig = {
       chainId: 4157,
     },
     "truffle-dashboard": {
-      url: "http://localhost:24012/rpc",
+      url: "https://localhost:24012/rpc",
+    },
+    rootsock: {
+      url: "https://rpc.testnet.rootstock.io/IYjLilNnX96TkySQ3QeRRXzq5ev5kN-T",
+      accounts: [deployerPrivateKey],
+      chainId: 31,
+    },
+    KintoMainnet: {
+      url: "https://rpc.kinto.xyz/http",
+      accounts: [deployerPrivateKey],
+      chainId: 7887,
     },
   },
   // configuration for harhdat-verify plugin
