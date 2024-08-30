@@ -1,10 +1,18 @@
 {
   "compilerOptions": {
-    "target": "es2020",
+    "target": "es2022",
     "module": "commonjs",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "paths": {
+      "@/*": ["./*"],
+      "@ethers-v6": ["./generated-types"],
+      "@scripts": ["./scripts"],
+      "@test-helpers": ["./test/helpers"],
+      "@deploy-helper": ["./deploy/helpers"]
+    }
   }
 }

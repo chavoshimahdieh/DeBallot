@@ -1,27 +1,17 @@
-# dependencies
 node_modules
-
-# env files
 .env
+.DS_Store
 
-# coverage
-coverage
-coverage.json
-
-# typechain
-typechain
-typechain-types
-
-# hardhat files
+# Hardhat files
 cache
 artifacts
+coverage.json
+coverage
+abi
 
-# zkSync files
-artifacts-zk
-cache-zk
+# Typechain generated files
+generated-types
+generated-markups
 
-# deployments
-deployments/localhost
-
-# other
-temp
+# Hardhat migrate
+.storage.json
