@@ -3,14 +3,40 @@ dotenv.config();
 import { HardhatUserConfig } from "hardhat/config";
 import fs from "fs";
 
-import "@nomicfoundation/hardhat-toolbox";
-import "@nomicfoundation/hardhat-foundry";
-import "hardhat-preprocessor";
-import "@nomicfoundation/hardhat-verify";
-import "hardhat-deploy";
-// import "@solarity/hardhat-migrate";
+import "@nomicfoundation/hardhat-ethers";
+import "@nomicfoundation/hardhat-chai-matchers";
+
+import "@typechain/hardhat";
+
+import "@solarity/hardhat-migrate";
+import "@solarity/hardhat-markup";
+
 import "hardhat-contract-sizer";
 import "hardhat-gas-reporter";
+import "hardhat-abi-exporter";
+
+import "solidity-coverage";
+
+import "tsconfig-paths/register";
+
+
+// import "@nomicfoundation/hardhat-toolbox";
+// import "@nomicfoundation/hardhat-foundry";
+// import "hardhat-preprocessor";
+// import "@nomicfoundation/hardhat-verify";
+// import "hardhat-deploy";
+// import "@solarity/hardhat-migrate";
+// import "hardhat-contract-sizer";
+// import "hardhat-gas-reporter";
+// import "@nomicfoundation/hardhat-ethers";
+// import "@nomicfoundation/hardhat-chai-matchers";
+// import "@typechain/hardhat";
+// import "@solarity/hardhat-markup";
+// import "hardhat-abi-exporter";
+// import "solidity-coverage";
+// import "tsconfig-paths/register";
+// import "@truffle/dashboard-hardhat-plugin";
+// import "hardhat-deploy-ethers";
 
 dotenv.config();
 
@@ -180,39 +206,39 @@ const config: MyHardhatUserConfig = {
     },
   },
   // configuration for harhdat-verify plugin
-  etherscan: {
-    apiKey: `${etherscanApiKey}`,
-  },
-
   // etherscan: {
   //   apiKey: `${etherscanApiKey}`,
-  //   customChains: [
-  //     {
-  //       network: "qDevnet",
-  //       chainId: 35442,
-  //       urls: {
-  //         apiURL: "https://explorer.qdevnet.org/api",
-  //         browserURL: "https://explorer.qdevnet.org",
-  //       },
-  //     },
-  //     {
-  //       network: "qTestnet",
-  //       chainId: 35443,
-  //       urls: {
-  //         apiURL: "https://explorer.qtestnet.org/api",
-  //         browserURL: "https://explorer.qtestnet.org",
-  //       },
-  //     },
-  //     {
-  //       network: "qMainnet",
-  //       chainId: 35441,
-  //       urls: {
-  //         apiURL: "https://explorer.q.org/api",
-  //         browserURL: "https://explorer.q.org",
-  //       },
-  //     },
-  //   ],
   // },
+
+  etherscan: {
+    apiKey: `${etherscanApiKey}`,
+    customChains: [
+      {
+        network: "qDevnet",
+        chainId: 35442,
+        urls: {
+          apiURL: "https://explorer.qdevnet.org/api",
+          browserURL: "https://explorer.qdevnet.org",
+        },
+      },
+      {
+        network: "qTestnet",
+        chainId: 35443,
+        urls: {
+          apiURL: "https://explorer.qtestnet.org/api",
+          browserURL: "https://explorer.qtestnet.org",
+        },
+      },
+      {
+        network: "qMainnet",
+        chainId: 35441,
+        urls: {
+          apiURL: "https://explorer.q.org/api",
+          browserURL: "https://explorer.q.org",
+        },
+      },
+    ],
+  },
   migrate: {
     pathToMigrations: "./deploy/",
   },
@@ -226,27 +252,27 @@ const config: MyHardhatUserConfig = {
     strict: false,
   },
   // configuration for etherscan-verify from hardhat-deploy plugin
-  verify: {
-    etherscan: {
-      apiKey: `${etherscanApiKey}`,
-    },
-  },
-  sourcify: {
-    enabled: false,
-  },
+  // verify: {
+  //   etherscan: {
+  //     apiKey: `${etherscanApiKey}`,
+  //   },
+  // },
+  // sourcify: {
+  //   enabled: false,
+  // },
   gasReporter: {
     currency: "USD",
     gasPrice: 50,
     enabled: false,
     coinmarketcap: `${process.env.COINMARKETCAP_KEY}`,
   },
-  // typechain: {
-  //   outDir: "generated-types",
-  //   target: "ethers-v6",
-  // },
-  // abiExporter: {
-  //   flat: true,
-  // },
+  typechain: {
+    outDir: "generated-types",
+    target: "ethers-v6",
+  },
+  abiExporter: {
+    flat: true,
+  },
   preprocess: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     eachLine: (_hre: any) => ({
