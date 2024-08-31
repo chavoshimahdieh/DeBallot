@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.16;
+pragma solidity 0.8.26;
 
 import {Address} from "@openzeppelin/contracts/utils/Address.sol";
 import {EnumerableSet} from "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
@@ -14,6 +14,7 @@ import {IVotingRegistry} from "../interfaces/core/IVotingRegistry.sol";
 
 /**
  * @title VotingRegistry contract
+ * @dev Manages pool types, implementations, and associations between voting and registration pools.
  */
 contract VotingRegistry is IVotingRegistry, Initializable, OwnableUpgradeable, UUPSUpgradeable {
     using EnumerableSet for EnumerableSet.AddressSet;
@@ -39,13 +40,24 @@ contract VotingRegistry is IVotingRegistry, Initializable, OwnableUpgradeable, U
     // proposer => registration => voting
     mapping(address => mapping(address => address)) private _registrationToVoting;
 
+    error LengthMismatch();
+    error PoolTypeCannotBeEmpty();
+    error AddressIsNotAContract();
+    error RegistrationPoolNotFound();
+    error VotingContractAlreadyBound();
+    error OnlyFactoryCanCall();
+
     modifier onlyEqualLength(string[] memory poolType_, address[] memory newImplementations_) {
-        _requireEqualLength(poolType_, newImplementations_);
+        if (poolType_.length != newImplementations_.length) {
+            revert LengthMismatch();
+        }
         _;
     }
 
     modifier onlyFactory() {
-        _requireOnlyFactory();
+        if (msg.sender != poolFactory) {
+            revert OnlyFactoryCanCall();
+        }
         _;
     }
 
@@ -73,12 +85,13 @@ contract VotingRegistry is IVotingRegistry, Initializable, OwnableUpgradeable, U
         address[] memory newImplementations_
     ) external onlyOwner onlyEqualLength(poolTypes_, newImplementations_) {
         for (uint256 i = 0; i < poolTypes_.length; i++) {
-            require(bytes(poolTypes_[i]).length > 0, "VotingRegistry: pool type cannot be empty");
+            if (bytes(poolTypes_[i]).length == 0) {
+                revert PoolTypeCannotBeEmpty();
+            }
 
-            require(
-                Address.isContract(newImplementations_[i]),
-                "VotingRegistry: the implementation address is not a contract"
-            );
+            if (!Address.isContract(newImplementations_[i])) {
+                revert AddressIsNotAContract();
+            }
 
             _poolImplementations[poolTypes_[i]] = newImplementations_[i];
         }
@@ -107,15 +120,13 @@ contract VotingRegistry is IVotingRegistry, Initializable, OwnableUpgradeable, U
         address voting_,
         address registration_
     ) external onlyFactory {
-        require(
-            bytes(_typeByPool[registration_]).length > 0,
-            "VotingRegistry: registration pool not found"
-        );
+        if (bytes(_typeByPool[registration_]).length == 0) {
+            revert RegistrationPoolNotFound();
+        }
 
-        require(
-            _registrationToVoting[proposer_][registration_] == address(0),
-            "VotingRegistry: registration pool already has a voting contract"
-        );
+        if (_registrationToVoting[proposer_][registration_] != address(0)) {
+            revert VotingContractAlreadyBound();
+        }
 
         _registrationToVoting[proposer_][registration_] = voting_;
     }

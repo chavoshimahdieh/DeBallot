@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.16;
+pragma solidity 0.8.26;
 
 import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
@@ -29,6 +29,12 @@ contract Registration is IRegistration, PoseidonSMT, Initializable {
     /// Mapping to track roots and validate their existence
     mapping(bytes32 => bool) public rootsHistory;
 
+    // Custom errors
+    error CommitmentAlreadyExists();
+    error RegistrationNotInCommitmentState();
+    error InvalidCommitmentStart();
+    error InvalidCommitmentPeriod();
+
     /**
      * @notice Initializes a new Registration contract with specified verifiers and SMT tree depth.
      * @param registerVerifier_ Address of the registration proof verifier contract.
@@ -36,9 +42,7 @@ contract Registration is IRegistration, PoseidonSMT, Initializable {
      */
     constructor(address registerVerifier_, uint256 treeHeight_) {
         registerVerifier = IRegisterVerifier(registerVerifier_);
-
         smtTreeMaxDepth = treeHeight_;
-
         _disableInitializers();
     }
 
@@ -49,15 +53,12 @@ contract Registration is IRegistration, PoseidonSMT, Initializable {
         RegistrationParams calldata registrationParams_
     ) external initializer {
         __PoseidonSMT_init(smtTreeMaxDepth);
-
         _validateRegistrationParams(registrationParams_);
-
         registrationInfo.remark = registrationParams_.remark;
         registrationInfo.values.commitmentStartTime = registrationParams_.commitmentStart;
         registrationInfo.values.commitmentEndTime =
             registrationParams_.commitmentStart +
             registrationParams_.commitmentPeriod;
-
         emit RegistrationInitialized(msg.sender, registrationParams_);
     }
 
@@ -70,14 +71,15 @@ contract Registration is IRegistration, PoseidonSMT, Initializable {
         IBaseVerifier.TransitStateParams memory transitStateParams_,
         bool isTransitState_
     ) external {
-        require(
-            getRegistrationStatus() == RegistrationStatus.COMMITMENT,
-            "Registration: the registration must be in the commitment state"
-        );
+        if (getRegistrationStatus() != RegistrationStatus.COMMITMENT) {
+            revert RegistrationNotInCommitmentState();
+        }
 
         bytes32 commitment_ = registerProofParams_.commitment;
 
-        require(!commitments[commitment_], "Registration: commitment already exists");
+        if (commitments[commitment_]) {
+            revert CommitmentAlreadyExists();
+        }
 
         IRegisterVerifier.RegisterProofInfo memory registerProofInfo_ = IRegisterVerifier
             .RegisterProofInfo({
@@ -99,7 +101,6 @@ contract Registration is IRegistration, PoseidonSMT, Initializable {
         commitments[commitment_] = true;
         rootsHistory[getRoot()] = true;
         registrationInfo.counters.totalRegistrations++;
-
         emit UserRegistered(msg.sender, proveIdentityParams_, registerProofParams_);
     }
 
@@ -146,13 +147,11 @@ contract Registration is IRegistration, PoseidonSMT, Initializable {
     function _validateRegistrationParams(
         RegistrationParams calldata registrationParams_
     ) internal view {
-        require(
-            registrationParams_.commitmentStart > block.timestamp,
-            "Registration: commitment start must be in the future"
-        );
-        require(
-            registrationParams_.commitmentPeriod > 0,
-            "Registration: commitment period must be greater than 0"
-        );
+        if (registrationParams_.commitmentStart <= block.timestamp) {
+            revert InvalidCommitmentStart();
+        }
+        if (registrationParams_.commitmentPeriod == 0) {
+            revert InvalidCommitmentPeriod();
+        }
     }
 }

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.16;
+pragma solidity 0.8.26;
 
 import {ERC165} from "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
@@ -41,13 +41,25 @@ contract Voting is IVoting, ERC165, Initializable {
     /// Mapping to track votes per candidate
     mapping(bytes32 => uint256) public votesPerCandidate;
 
+    // Custom Errors
+    error NullifierAlreadyUsed();
+    error VotingNotInPendingState();
+    error RootDoesNotExist();
+    error CandidateDoesNotExist();
+    error InvalidVoteProof();
+    error VotingStartMustBeInFuture();
+    error RegistrationContractMustBeProvided();
+    error VotingPeriodMustBeGreaterThanZero();
+    error CandidatesMustBeProvided();
+    error TooManyCandidates();
+    error VotingStartMustBeAfterRegistrationEnd();
+
     /**
      * @notice Initializes a new Voting contract with specified verifier.
      * @param voteVerifier_ Address of the voting proof verifier contract.
      */
     constructor(address voteVerifier_) {
         voteVerifier = voteVerifier_;
-
         _disableInitializers();
     }
 
@@ -82,28 +94,36 @@ contract Voting is IVoting, ERC165, Initializable {
         bytes32 candidate_,
         VerifierHelper.ProofPoints memory proof_
     ) external {
-        require(
-            getProposalStatus() == VotingStatus.PENDING,
-            "Voting: the voting must be in the pending state to vote"
+        if (getProposalStatus() != VotingStatus.PENDING) {
+            revert VotingNotInPendingState();
+        }
+
+        if (nullifiers[nullifierHash_]) {
+            revert NullifierAlreadyUsed();
+        }
+
+        if (!registration.isRootExists(root_)) {
+            revert RootDoesNotExist();
+        }
+
+        if (!candidates[candidate_]) {
+            revert CandidateDoesNotExist();
+        }
+
+        bool isValid = voteVerifier.verifyProofSafe(
+            [
+                uint256(nullifierHash_),
+                uint256(root_),
+                uint256(candidate_),
+                uint256(uint160(address(this)))
+            ].asDynamic(),
+            proof_,
+            4
         );
 
-        require(!nullifiers[nullifierHash_], "Voting: nullifier already used");
-        require(registration.isRootExists(root_), "Voting: root doesn't exist");
-        require(candidates[candidate_], "Voting: candidate doesn't exist");
-
-        require(
-            voteVerifier.verifyProofSafe(
-                [
-                    uint256(nullifierHash_),
-                    uint256(root_),
-                    uint256(candidate_),
-                    uint256(uint160(address(this)))
-                ].asDynamic(),
-                proof_,
-                4
-            ),
-            "Voting: Invalid vote proof"
-        );
+        if (!isValid) {
+            revert InvalidVoteProof();
+        }
 
         nullifiers[nullifierHash_] = true;
 
@@ -147,23 +167,26 @@ contract Voting is IVoting, ERC165, Initializable {
     }
 
     function _validateVotingParams(VotingParams calldata votingParams_) internal view {
-        require(
-            votingParams_.votingStart > block.timestamp,
-            "Voting: voting start must be in the future"
-        );
-        require(
-            address(votingParams_.registration) != address(0),
-            "Voting: registration contract must be provided"
-        );
-        require(votingParams_.votingPeriod > 0, "Voting: voting period must be greater than 0");
-        require(votingParams_.candidates.length > 0, "Voting: candidates must be provided");
-        require(votingParams_.candidates.length <= MAX_CANDIDATES, "Voting: too many candidates");
+        if (votingParams_.votingStart <= block.timestamp) {
+            revert VotingStartMustBeInFuture();
+        }
+        if (address(votingParams_.registration) == address(0)) {
+            revert RegistrationContractMustBeProvided();
+        }
+        if (votingParams_.votingPeriod == 0) {
+            revert VotingPeriodMustBeGreaterThanZero();
+        }
+        if (votingParams_.candidates.length == 0) {
+            revert CandidatesMustBeProvided();
+        }
+        if (votingParams_.candidates.length > MAX_CANDIDATES) {
+            revert TooManyCandidates();
+        }
 
         IRegistration.RegistrationInfo memory registrationInfo = registration
             .getRegistrationInfo();
-        require(
-            registrationInfo.values.commitmentEndTime < votingParams_.votingStart,
-            "Voting: voting start must be after registration end"
-        );
+        if (registrationInfo.values.commitmentEndTime >= votingParams_.votingStart) {
+            revert VotingStartMustBeAfterRegistrationEnd();
+        }
     }
 }

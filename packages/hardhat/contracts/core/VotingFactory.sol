@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.16;
+pragma solidity 0.8.26;
 
 import {Create2} from "@openzeppelin/contracts/utils/Create2.sol";
 import {Address} from "@openzeppelin/contracts/utils/Address.sol";
@@ -16,9 +16,15 @@ import {IVotingRegistry} from "../interfaces/core/IVotingRegistry.sol";
 
 /**
  * @title VotingFactory contract
+ * @dev Contract for managing the creation and registration of voting pools with support for ERC165 interface checks.
  */
 contract VotingFactory is IVotingFactory, Initializable, UUPSUpgradeable {
     IVotingRegistry public votingRegistry;
+
+    error PoolTypeDoesNotExist();
+    error PoolInitializationFailed();
+    error VotingPoolDoesNotSupportIVotingPool();
+    error OnlyRegistryOwnerCanUpgrade();
 
     modifier onlyExistingPoolType(string memory votingType_) {
         _requireExistingPoolType(votingType_);
@@ -63,10 +69,9 @@ contract VotingFactory is IVotingFactory, Initializable, UUPSUpgradeable {
     function createVoting(string memory votingType_, bytes memory data_) external {
         address voting_ = _createPool(votingType_, data_);
 
-        require(
-            ERC165Checker.supportsInterface(voting_, type(IVotingPool).interfaceId),
-            "VotingFactory: voting pool does not support IVotingPool"
-        );
+        if (!ERC165Checker.supportsInterface(voting_, type(IVotingPool).interfaceId)) {
+            revert VotingPoolDoesNotSupportIVotingPool();
+        }
 
         address[] memory registrations_ = IVotingPool(voting_).getRegistrationAddresses();
 
@@ -85,15 +90,14 @@ contract VotingFactory is IVotingFactory, Initializable, UUPSUpgradeable {
     ) external {
         address voting_ = _createPoolWithSalt(votingType_, data_, salt_);
 
-        require(
-            ERC165Checker.supportsInterface(voting_, type(IVotingPool).interfaceId),
-            "VotingFactory: voting pool does not support IVotingPool"
-        );
+        if (!ERC165Checker.supportsInterface(voting_, type(IVotingPool).interfaceId)) {
+            revert VotingPoolDoesNotSupportIVotingPool();
+        }
 
-        address[] memory registration_ = IVotingPool(voting_).getRegistrationAddresses();
+        address[] memory registrations_ = IVotingPool(voting_).getRegistrationAddresses();
 
-        for (uint256 i = 0; i < registration_.length; i++) {
-            votingRegistry.bindVotingToRegistration(msg.sender, voting_, registration_[i]);
+        for (uint256 i = 0; i < registrations_.length; i++) {
+            votingRegistry.bindVotingToRegistration(msg.sender, voting_, registrations_[i]);
         }
     }
 
@@ -133,11 +137,7 @@ contract VotingFactory is IVotingFactory, Initializable, UUPSUpgradeable {
         address pool_ = _deploy2(poolType_, new bytes(0), combinedSalt_);
 
         (bool success_, bytes memory returnData_) = pool_.call(data_);
-        Address.verifyCallResult(
-            success_,
-            returnData_,
-            "VotingFactory: failed to initialize pool"
-        );
+        Address.verifyCallResult(success_, returnData_, PoolInitializationFailed());
 
         _register(poolType_, msg.sender, pool_);
 
@@ -184,16 +184,14 @@ contract VotingFactory is IVotingFactory, Initializable, UUPSUpgradeable {
     }
 
     function _requireExistingPoolType(string memory poolType_) private view {
-        require(
-            votingRegistry.getPoolImplementation(poolType_) != address(0),
-            "VotingFactory: pool type does not exist"
-        );
+        if (votingRegistry.getPoolImplementation(poolType_) == address(0)) {
+            revert PoolTypeDoesNotExist();
+        }
     }
 
     function _authorizeUpgrade(address) internal view override {
-        require(
-            msg.sender == OwnableUpgradeable(address(votingRegistry)).owner(),
-            "VotingFactory: only registry owner can upgrade"
-        );
+        if (msg.sender != OwnableUpgradeable(address(votingRegistry)).owner()) {
+            revert OnlyRegistryOwnerCanUpgrade();
+        }
     }
 }
