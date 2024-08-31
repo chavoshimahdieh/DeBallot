@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.16;
+pragma solidity 0.8.26;
 
 import {IBaseVerifier} from "../iden3/verifiers/IBaseVerifier.sol";
 import {IRegisterVerifier} from "../iden3/verifiers/IRegisterVerifier.sol";

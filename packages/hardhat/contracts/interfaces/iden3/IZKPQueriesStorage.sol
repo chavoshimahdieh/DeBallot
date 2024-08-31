@@ -2,7 +2,7 @@
 // [identity-contracts repository](https://github.com/rarimo/identity-contracts/tree/aeb929ccc3fa8ab508fd7576f9fa853a081e5010).
 
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.16;
+pragma solidity 0.8.26;
 
 import {ILightweightState} from "./ILightweightState.sol";
 
