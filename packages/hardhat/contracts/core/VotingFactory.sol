@@ -22,7 +22,6 @@ contract VotingFactory is IVotingFactory, Initializable, UUPSUpgradeable {
     IVotingRegistry public votingRegistry;
 
     error PoolTypeDoesNotExist();
-    error PoolInitializationFailed();
     error VotingPoolDoesNotSupportIVotingPool();
     error OnlyRegistryOwnerCanUpgrade();
 
@@ -137,7 +136,11 @@ contract VotingFactory is IVotingFactory, Initializable, UUPSUpgradeable {
         address pool_ = _deploy2(poolType_, new bytes(0), combinedSalt_);
 
         (bool success_, bytes memory returnData_) = pool_.call(data_);
-        Address.verifyCallResult(success_, returnData_, PoolInitializationFailed());
+        Address.verifyCallResult(
+            success_,
+            returnData_,
+            "VotingFactory: failed to initialize pool"
+        );
 
         _register(poolType_, msg.sender, pool_);
 
