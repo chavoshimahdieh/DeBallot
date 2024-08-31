@@ -1,19 +1,11 @@
 {
-  "name": "@rarimo/voting-contracts",
+  "name": "@se-2/hardhat",
   "version": "0.1.1",
   "license": "MIT",
-  "author": "Zero Block Global Foundation",
-  "description": "This repository contains contracts for managing the anonymous registration and voting processes.",
-  "bugs": {
-    "url": "https://github.com/rarimo/voting-contracts/issues"
-  },
-  "homepage": "https://github.com/rarimo/voting-contracts#readme",
+  "author": "",
+  "description": "",
   "publishConfig": {
     "access": "public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rarimo/voting-contracts.git"
   },
   "keywords": [
     "solidity",

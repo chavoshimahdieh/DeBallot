@@ -1,6 +1,8 @@
 {
   "extends": "solhint:recommended",
-  "plugins": ["prettier"],
+  "plugins": [
+    "prettier"
+  ],
   "rules": {
     "prettier/prettier": "warn",
     "reentrancy": "off",
@@ -10,5 +12,9 @@
     "max-states-count": "off",
     "not-rely-on-time": "off",
     "compiler-version": "off"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "solidityVersion": "0.8.26"
   }
 }
