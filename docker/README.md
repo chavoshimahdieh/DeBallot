@@ -1,29 +1,70 @@
-#!/bin/bash
+# 🏄‍♂️ Using Docker
 
-DOCKER_IMAGE=$(docker ps --filter name=SCAFFOLD_ETH -q)
+Prerequisites:
 
-if [ "$1" = "start" ]; then
-  # Run Docker container
-  # to run the frontend on a different port add the "-e PORT=8080" parameter and change "-p 8080:8080" one.
-  [ -z "$DOCKER_IMAGE" ] && docker run \
-    --name SCAFFOLD_ETH \
-    -v `pwd`:/opt/scaffold-eth \
-    -w /opt/scaffold-eth \
-    -p 3000:3000 \
-    -p 8545:8545 \
-    -dt node:16 || docker restart SCAFFOLD_ETH
+- [Docker](https://docs.docker.com/engine/install/)
+- [Git](https://git-scm.com/)
+- Bash Shell: available in macOS by default and the vast majority of Linux distros
 
-  docker exec -ti SCAFFOLD_ETH bash -c "yarn install"
-  docker exec -dt SCAFFOLD_ETH bash -c "yarn chain"
-  sleep 5
-  docker exec -ti SCAFFOLD_ETH bash -c "yarn deploy"
-  docker exec -dt SCAFFOLD_ETH bash -c "yarn start"
-else
-  if [ "$1" = "deploy" ]; then
-    [ -z "$DOCKER_IMAGE" ] && echo "Container does not exist. Run the script with 'start' before running it with the 'deploy' option." \
-      || docker exec -ti SCAFFOLD_ETH bash -c "yarn deploy"
-  else
-    echo "Invalid command. Choose 'start' or 'deploy'."
-  fi
-fi
+**\*Note**: If you are using a Windows environment, you can use [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/) or a Bash emulator like "Git BASH" (which its included in [Git for Windows](https://gitforwindows.org/)). If you use WSL take into account that you should [configure Docker to use the WSL 2 backend](https://docs.docker.com/desktop/windows/wsl/).\*
 
+> clone/fork 🏗 Deballot:
+
+```bash
+git clone https://github.com/chavoshimahdieh/DeBallot
+```
+
+> [basic] run the script that sets the stack up and that's it (takes some minutes to finish):
+
+```bash
+cd DeBallot
+./docker/setup.sh start
+```
+
+> [basic] to re-deploy your contracts (container must be up and running):
+
+```bash
+./docker/setup.sh deploy
+```
+
+> [advanced] running front-end on a different port (eg. 8080):
+
+```bash
+DOCKER_IMAGE=$(docker ps --filter name=DEBALLOT -q)
+[ -z "$DOCKER_IMAGE" ] || docker rm -f DEBALLOT
+
+docker run \
+  --name DEBALLOT \
+  -v `pwd`:/opt/DeBallot \
+  -w /opt/DeBallot \
+  -e PORT=8080 \
+  -p 8080:8080 \
+  -p 8545:8545 \
+  -dt node:16
+
+./docker/setup.sh start
+```
+
+> [advanced] running the container in interactive mode (must run each tool manually):
+
+```bash
+DOCKER_IMAGE=$(docker ps --filter name=DEBALLOT -q)
+[ -z "$DOCKER_IMAGE" ] || docker rm -f DEBALLOT
+
+docker run \
+  --name DEBALLOT \
+  -v `pwd`:/opt/DeBallot \
+  -w /opt/DeBallot \
+  -p 3000:3000 \
+  -p 8545:8545 \
+  --entrypoint /bin/bash \
+  -ti node:16
+```
+
+🔏 Edit your smart contract `YourContract.sol` in `packages/hardhat/contracts`
+
+📝 Edit your frontend `App.jsx` in `packages/react-app/src`
+
+💼 Edit your deployment scripts in `packages/hardhat/deploy`
+
+📱 Open http://localhost:3000 to see the app
