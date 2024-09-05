@@ -119,7 +119,23 @@ describe("Voting", () => {
         votingStart: 0,
       };
 
-      await expect(voting.__Voting_init(votingParams)).to.be.rejectedWith("Voting: voting start must be in the future");
+      await expect(voting.__Voting_init(votingParams)).to.be.revertedWithCustomError(
+        voting,
+        "VotingStartMustBeInFuture()",
+      );
+    });
+
+    it("should revert if registration contract is not provided", async () => {
+      const votingParams: IVoting.VotingParamsStruct = {
+        ...deepClone(defaultVotingParams),
+        votingStart: (await time.latest()) + 60,
+        registration: ethers.ZeroAddress,
+      };
+
+      await expect(voting.__Voting_init(votingParams)).to.be.revertedWithCustomError(
+        voting,
+        "RegistrationContractMustBeProvided()",
+      );
     });
 
     it("should revert if voting period is 0", async () => {
@@ -129,8 +145,9 @@ describe("Voting", () => {
         votingPeriod: 0,
       };
 
-      await expect(voting.__Voting_init(votingParams)).to.be.rejectedWith(
-        "Voting: voting period must be greater than 0",
+      await expect(voting.__Voting_init(votingParams)).to.be.revertedWithCustomError(
+        voting,
+        "VotingPeriodMustBeGreaterThanZero()",
       );
     });
 
@@ -141,7 +158,10 @@ describe("Voting", () => {
         candidates: [],
       };
 
-      await expect(voting.__Voting_init(votingParams)).to.be.rejectedWith("Voting: candidates must be provided");
+      await expect(voting.__Voting_init(votingParams)).to.be.revertedWithCustomError(
+        voting,
+        "CandidatesMustBeProvided()",
+      );
     });
 
     it("should revert if too many candidates are provided", async () => {
@@ -151,19 +171,7 @@ describe("Voting", () => {
         candidates: new Array(101).fill(ethers.ZeroHash),
       };
 
-      await expect(voting.__Voting_init(votingParams)).to.be.rejectedWith("Voting: too many candidates");
-    });
-
-    it("should revert if registration contract is not provided", async () => {
-      const votingParams: IVoting.VotingParamsStruct = {
-        ...deepClone(defaultVotingParams),
-        votingStart: (await time.latest()) + 60,
-        registration: ethers.ZeroAddress,
-      };
-
-      await expect(voting.__Voting_init(votingParams)).to.be.rejectedWith(
-        "Voting: registration contract must be provided",
-      );
+      await expect(voting.__Voting_init(votingParams)).to.be.revertedWithCustomError(voting, "TooManyCandidates()");
     });
 
     it("should revert if registration phase is not over", async () => {
@@ -174,8 +182,9 @@ describe("Voting", () => {
 
       await registration.setRegistrationStatus(true);
 
-      await expect(voting.__Voting_init(votingParams)).to.be.rejectedWith(
-        "Voting: voting start must be after registration end",
+      await expect(voting.__Voting_init(votingParams)).to.be.revertedWithCustomError(
+        voting,
+        "VotingStartMustBeAfterRegistrationEnd()",
       );
     });
   });
@@ -215,30 +224,25 @@ describe("Voting", () => {
       await time.increaseTo((await voting.votingInfo())["1"].votingStartTime);
     });
 
+    // vote
     it("should revert if trying to vote not during the voting period", async () => {
       await time.increase(Number(defaultVotingParams.votingPeriod));
 
       await expect(
         voting.vote(root, zkpProof.nullifierHash, ethers.toBeHex(OWNER.address, 32), zkpProof.formattedProof),
-      ).to.be.rejectedWith("Voting: the voting must be in the pending state to vote");
+      ).to.be.revertedWithCustomError(voting, "VotingNotInPendingState()");
+    });
+
+    it("should revert if vote with used nullifier hash", async () => {
+      await voting.vote(root, zkpProof.nullifierHash, ethers.toBeHex(OWNER.address, 32), zkpProof.formattedProof);
+
+      await expect(
+        voting.vote(root, zkpProof.nullifierHash, ethers.toBeHex(OWNER.address, 32), zkpProof.formattedProof),
+      ).to.be.revertedWithCustomError(voting, "NullifierAlreadyUsed()");
     });
 
     it("should vote with correct ZKP proof", async () => {
       await voting.vote(root, zkpProof.nullifierHash, ethers.toBeHex(OWNER.address, 32), zkpProof.formattedProof);
-    });
-
-    it("should revert if trying to vote for non-candidate", async () => {
-      await expect(
-        voting.vote(root, zkpProof.nullifierHash, ethers.toBeHex(FIRST.address, 32), zkpProof.formattedProof),
-      ).to.be.rejectedWith("Voting: candidate doesn't exist");
-    });
-
-    it("should revert if vote with incorrect ZKP proof", async () => {
-      zkpProof.formattedProof.a[0] = ethers.ZeroHash;
-
-      await expect(
-        voting.vote(root, zkpProof.nullifierHash, ethers.toBeHex(OWNER.address, 32), zkpProof.formattedProof),
-      ).to.be.rejectedWith("Voting: Invalid vote proof");
     });
 
     it("should revert if vote with non-existing root", async () => {
@@ -249,11 +253,17 @@ describe("Voting", () => {
           ethers.toBeHex(OWNER.address, 32),
           zkpProof.formattedProof,
         ),
-      ).to.be.rejectedWith("Voting: root doesn't exist");
+      ).to.be.revertedWithCustomError(voting, "RootDoesNotExist()");
     });
 
-    it("should revert if vote with used nullifier hash", async () => {
-      await voting.vote(root, zkpProof.nullifierHash, ethers.toBeHex(OWNER.address, 32), zkpProof.formattedProof);
+    it("should revert if trying to vote for non-candidate", async () => {
+      await expect(
+        voting.vote(root, zkpProof.nullifierHash, ethers.toBeHex(FIRST.address, 32), zkpProof.formattedProof),
+      ).to.be.revertedWithCustomError(voting, "CandidateDoesNotExist()");
+    });
+
+    it("should revert if vote with incorrect ZKP proof", async () => {
+      zkpProof.formattedProof.a[0] = ethers.ZeroHash;
 
       await expect(
         voting.vote(root, zkpProof.nullifierHash, ethers.toBeHex(OWNER.address, 32), zkpProof.formattedProof),

@@ -110,20 +110,19 @@ contract Voting is IVoting, ERC165, Initializable {
             revert CandidateDoesNotExist();
         }
 
-        bool isValid = voteVerifier.verifyProofSafe(
-            [
-                uint256(nullifierHash_),
-                uint256(root_),
-                uint256(candidate_),
-                uint256(uint160(address(this)))
-            ].asDynamic(),
-            proof_,
-            4
+        require(
+            voteVerifier.verifyProofSafe(
+                [
+                    uint256(nullifierHash_),
+                    uint256(root_),
+                    uint256(candidate_),
+                    uint256(uint160(address(this)))
+                ].asDynamic(),
+                proof_,
+                4
+            ),
+            "Voting: Invalid vote proof"
         );
-
-        if (!isValid) {
-            revert InvalidVoteProof();
-        }
 
         nullifiers[nullifierHash_] = true;
 

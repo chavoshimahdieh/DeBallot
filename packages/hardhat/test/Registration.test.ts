@@ -202,8 +202,8 @@ describe("Registration", () => {
         commitmentStart: 0,
       };
 
-      await expect(registration.__Registration_init(registrationParams)).to.be.rejectedWith(
-        "Registration: commitment start must be in the future",
+      await expect(registration.__Registration_init(registrationParams)).to.be.revertedWithCustomError(registration, 
+        "InvalidCommitmentStart()",
       );
     });
 
@@ -214,8 +214,8 @@ describe("Registration", () => {
         commitmentPeriod: 0,
       };
 
-      await expect(registration.__Registration_init(registrationParams)).to.be.rejectedWith(
-        "Registration: commitment period must be greater than 0",
+      await expect(registration.__Registration_init(registrationParams)).to.be.revertedWithCustomError(registration, 
+        "InvalidCommitmentPeriod()",
       );
     });
   });
@@ -363,7 +363,7 @@ describe("Registration", () => {
 
       await expect(
         registration.register(proveIdentityParams, proofParamsStruct, transitStateParams, false),
-      ).to.be.rejectedWith("Registration: the registration must be in the commitment state");
+      ).to.be.revertedWithCustomError(registration, "RegistrationNotInCommitmentState()");
     });
 
     it("should revert if commitment was already used", async () => {
@@ -373,13 +373,13 @@ describe("Registration", () => {
 
       await expect(
         registration.register(proveIdentityParams, proofParamsStruct, transitStateParams, false),
-      ).to.be.rejectedWith("Registration: commitment already exists");
+      ).to.be.revertedWithCustomError(registration, "CommitmentAlreadyExists()");
     });
 
     it("should register with state transition and ZKP proof", async () => {
       await expect(
         registration.register(proveIdentityParams, proofParamsStruct, transitStateParams, false),
-      ).to.be.rejectedWith("QueryValidator: gist root state isn't in state contract");
+      ).to.be.revertedWithCustomError(registration, "QueryValidator: gist root state isn't in state contract");
 
       await registration.register(proveIdentityParams, proofParamsStruct, transitStateParams, true);
     });
@@ -457,7 +457,7 @@ describe("Registration", () => {
 
       await expect(
         registration.register(proveIdentityParams, copyOfProofParamsStruct, transitStateParams, true),
-      ).to.be.rejectedWith("RegisterVerifier: commitment should not be zero");
+      ).to.be.revertedWithCustomError(registration, "RegisterVerifier: commitment should not be zero");
     });
   });
 
