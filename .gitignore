@@ -16,7 +16,7 @@ node_modules
 .DS_Store
 
 # IDE
-.vscode
+# .vscode
 .idea
 
 # cli
