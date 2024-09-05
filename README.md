@@ -8,6 +8,8 @@
 
 How It's Made: 🛠️ DeBallot is built on a robust blockchain framework, utilizing smart contracts 📜 to manage the voting process. The integration of Zero-Knowledge Proofs (ZKPs) is key 🔑, allowing voters to prove their eligibility without revealing their identity or vote. Advanced cryptographic techniques 🔐 secure the voting data, while the decentralized nature of the platform ensures transparency and resistance to manipulation. 🗳️ DeBallot combines cutting-edge technology 💻 with a user-friendly interface 👥, making it accessible and reliable for all types of elections. 🌟
 
+Inspired by [freedomtool](https://freedomtool.org/)
+
 ## Requirements
 
 Before you begin, you need to install the following tools:
