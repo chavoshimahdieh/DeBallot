@@ -162,7 +162,7 @@ const config: MyHardhatUserConfig = {
       accounts: [deployerPrivateKey],
     },
     baseSepolia: {
-      url: "https://sepolia.base.org",
+      url: "https://base-sepolia.blockpi.network/v1/rpc/public",
       accounts: [deployerPrivateKey],
     },
     scrollSepolia: {
@@ -194,7 +194,7 @@ const config: MyHardhatUserConfig = {
     "truffle-dashboard": {
       url: "https://localhost:24012/rpc",
     },
-    rootsock: {
+    rootstock: {
       url: "https://rpc.testnet.rootstock.io/IYjLilNnX96TkySQ3QeRRXzq5ev5kN-T",
       accounts: [deployerPrivateKey],
       chainId: 31,
