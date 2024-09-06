@@ -1,29 +1,53 @@
 #!/bin/bash
 
-DOCKER_IMAGE=$(docker ps --filter name=DEBALLOT -q)
+CONTAINER_NAME=DEBALLOT
+DOCKER_IMAGE=$(docker ps --filter name=$CONTAINER_NAME -q)
 
-if [ "$1" = "start" ]; then
-  # Run Docker container
-  # to run the frontend on a different port add the "-e PORT=8080" parameter and change "-p 8080:8080" one.
-  [ -z "$DOCKER_IMAGE" ] && docker run \
-    --name DEBALLOT \
-    -v `pwd`:/opt/DeBallot \
-    -w /opt/DeBallot \
-    -p 3000:3000 \
-    -p 8545:8545 \
-    -dt node:20 || docker restart DEBALLOT
+start_container() {
+    if [ -z "$DOCKER_IMAGE" ]; then
+        echo "Starting new container..."
+        docker run \
+            --name $CONTAINER_NAME \
+            -v "$(pwd)":/opt/DeBallot \
+            -w /opt/DeBallot \
+            -p 3000:3000 \
+            -p 8545:8545 \
+            -dt node:20
 
-  docker exec -ti DEBALLOT bash -c "yarn install"
-  docker exec -dt DEBALLOT bash -c "yarn chain"
-  sleep 5
-  docker exec -ti DEBALLOT bash -c "yarn deploy"
-  docker exec -dt DEBALLOT bash -c "yarn start"
-else
-  if [ "$1" = "deploy" ]; then
-    [ -z "$DOCKER_IMAGE" ] && echo "Container does not exist. Run the script with 'start' before running it with the 'deploy' option." \
-      || docker exec -ti DEBALLOT bash -c "yarn deploy"
-  else
-    echo "Invalid command. Choose 'start' or 'deploy'."
-  fi
-fi
+        # Install Yarn in the container
+        docker exec $CONTAINER_NAME npm install -g yarn
 
+        # Install dependencies
+        docker exec $CONTAINER_NAME yarn install
+
+        # Run other commands
+        docker exec -dt $CONTAINER_NAME yarn chain
+        sleep 5
+        docker exec $CONTAINER_NAME yarn deploy
+        docker exec -dt $CONTAINER_NAME yarn start
+    else
+        echo "Container already exists. Restarting..."
+        docker restart $CONTAINER_NAME
+    fi
+}
+
+deploy() {
+    if [ -z "$DOCKER_IMAGE" ]; then
+        echo "Container does not exist. Run the script with 'start' before running it with the 'deploy' option."
+    else
+        docker exec $CONTAINER_NAME yarn deploy
+    fi
+}
+
+case "$1" in
+    start)
+        start_container
+        ;;
+    deploy)
+        deploy
+        ;;
+    *)
+        echo "Invalid command. Choose 'start' or 'deploy'."
+        exit 1
+        ;;
+esac
