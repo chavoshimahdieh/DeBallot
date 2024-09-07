@@ -1,0 +1,65 @@
+{
+  "id": "onchain_evm_11155111_0x1db",
+  "mode": "onchain",
+  "chainType": "evm",
+  "chainId": "11155111",
+  "attestationId": "0x1db",
+  "transactionHash": "0x6fab31642b551e801995d59b64843c877e0058c67aa54efb02e98ff930ae8f0e",
+  "indexingValue": "0x5B5226796b9331288B8c4BaDEeB408D388B5a40c",
+  "schemaId": "0xef",
+  "fullSchemaId": "onchain_evm_11155111_0xef",
+  "linkedAttestation": "",
+  "attester": "0x5B5226796b9331288B8c4BaDEeB408D388B5a40c",
+  "from": "0x5B5226796b9331288B8c4BaDEeB408D388B5a40c",
+  "attestTimestamp": "1725704856000",
+  "validUntil": "0",
+  "revoked": false,
+  "revokeTimestamp": null,
+  "revokeReason": null,
+  "revokeTransactionHash": "",
+  "data": "0x00000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000080000000000000000000000000a2fab70f786571b142c044b879219264ed3875cd000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000035541450000000000000000000000000000000000000000000000000000000000",
+  "dataLocation": "onchain",
+  "extra": {},
+  "syncAt": "1725704867688",
+  "lastSyncAt": null,
+  "recipients": ["0xa2faB70F786571B142c044B879219264ED3875CD"],
+  "schema": {
+    "id": "onchain_evm_11155111_0xef",
+    "mode": "onchain",
+    "chainType": "evm",
+    "chainId": "11155111",
+    "schemaId": "0xef",
+    "transactionHash": "0x711911813a612f93c87606b55961e5adcc9b60cbf51bac984e28b307442816c8",
+    "name": "DeBallot Scchema",
+    "description": "Schema to verify voting system",
+    "dataLocation": "onchain",
+    "revocable": true,
+    "maxValidFor": "0",
+    "resolver": "0x0000000000000000000000000000000000000000",
+    "registerTimestamp": "1725566088000",
+    "registrant": "0x5B5226796b9331288B8c4BaDEeB408D388B5a40c",
+    "data": [
+      {
+        "name": "age",
+        "type": "uint256"
+      },
+      {
+        "name": "nationality",
+        "type": "string"
+      },
+      {
+        "name": "walletAddress",
+        "type": "address"
+      },
+      {
+        "name": "isVerified",
+        "type": "bool"
+      }
+    ],
+    "originalData": "{\"name\":\"DeBallot Scchema\",\"description\":\"Schema to verify voting system\",\"data\":[{\"name\":\"age\",\"type\":\"uint256\"},{\"name\":\"nationality\",\"type\":\"string\"},{\"name\":\"walletAddress\",\"type\":\"address\"},{\"name\":\"isVerified\",\"type\":\"bool\"}]}",
+    "extra": {
+      "data": "{\"name\":\"DeBallot Scchema\",\"description\":\"Schema to verify voting system\",\"data\":[{\"name\":\"age\",\"type\":\"uint256\"},{\"name\":\"nationality\",\"type\":\"string\"},{\"name\":\"walletAddress\",\"type\":\"address\"},{\"name\":\"isVerified\",\"type\":\"bool\"}]}"
+    },
+    "syncAt": "1725566099466"
+  }
+}

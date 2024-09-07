@@ -1,0 +1,1578 @@
+{
+    "abi": [
+        {
+            "type": "function",
+            "name": "attest",
+            "inputs": [
+                {
+                    "name": "attestation",
+                    "type": "tuple",
+                    "internalType": "struct Attestation",
+                    "components": [
+                        {
+                            "name": "schemaId",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "linkedAttestationId",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "attestTimestamp",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "revokeTimestamp",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "attester",
+                            "type": "address",
+                            "internalType": "address"
+                        },
+                        {
+                            "name": "validUntil",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "dataLocation",
+                            "type": "uint8",
+                            "internalType": "enum DataLocation"
+                        },
+                        {
+                            "name": "revoked",
+                            "type": "bool",
+                            "internalType": "bool"
+                        },
+                        {
+                            "name": "recipients",
+                            "type": "bytes[]",
+                            "internalType": "bytes[]"
+                        },
+                        {
+                            "name": "data",
+                            "type": "bytes",
+                            "internalType": "bytes"
+                        }
+                    ]
+                },
+                {
+                    "name": "resolverFeesERC20Token",
+                    "type": "address",
+                    "internalType": "contract IERC20"
+                },
+                {
+                    "name": "resolverFeesERC20Amount",
+                    "type": "uint256",
+                    "internalType": "uint256"
+                },
+                {
+                    "name": "indexingKey",
+                    "type": "string",
+                    "internalType": "string"
+                },
+                {
+                    "name": "delegateSignature",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                },
+                {
+                    "name": "extraData",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "attestationId",
+                    "type": "uint64",
+                    "internalType": "uint64"
+                }
+            ],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "attest",
+            "inputs": [
+                {
+                    "name": "attestation",
+                    "type": "tuple",
+                    "internalType": "struct Attestation",
+                    "components": [
+                        {
+                            "name": "schemaId",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "linkedAttestationId",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "attestTimestamp",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "revokeTimestamp",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "attester",
+                            "type": "address",
+                            "internalType": "address"
+                        },
+                        {
+                            "name": "validUntil",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "dataLocation",
+                            "type": "uint8",
+                            "internalType": "enum DataLocation"
+                        },
+                        {
+                            "name": "revoked",
+                            "type": "bool",
+                            "internalType": "bool"
+                        },
+                        {
+                            "name": "recipients",
+                            "type": "bytes[]",
+                            "internalType": "bytes[]"
+                        },
+                        {
+                            "name": "data",
+                            "type": "bytes",
+                            "internalType": "bytes"
+                        }
+                    ]
+                },
+                {
+                    "name": "indexingKey",
+                    "type": "string",
+                    "internalType": "string"
+                },
+                {
+                    "name": "delegateSignature",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                },
+                {
+                    "name": "extraData",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "attestationId",
+                    "type": "uint64",
+                    "internalType": "uint64"
+                }
+            ],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "attest",
+            "inputs": [
+                {
+                    "name": "attestation",
+                    "type": "tuple",
+                    "internalType": "struct Attestation",
+                    "components": [
+                        {
+                            "name": "schemaId",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "linkedAttestationId",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "attestTimestamp",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "revokeTimestamp",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "attester",
+                            "type": "address",
+                            "internalType": "address"
+                        },
+                        {
+                            "name": "validUntil",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "dataLocation",
+                            "type": "uint8",
+                            "internalType": "enum DataLocation"
+                        },
+                        {
+                            "name": "revoked",
+                            "type": "bool",
+                            "internalType": "bool"
+                        },
+                        {
+                            "name": "recipients",
+                            "type": "bytes[]",
+                            "internalType": "bytes[]"
+                        },
+                        {
+                            "name": "data",
+                            "type": "bytes",
+                            "internalType": "bytes"
+                        }
+                    ]
+                },
+                {
+                    "name": "resolverFeesETH",
+                    "type": "uint256",
+                    "internalType": "uint256"
+                },
+                {
+                    "name": "indexingKey",
+                    "type": "string",
+                    "internalType": "string"
+                },
+                {
+                    "name": "delegateSignature",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                },
+                {
+                    "name": "extraData",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "attestationId",
+                    "type": "uint64",
+                    "internalType": "uint64"
+                }
+            ],
+            "stateMutability": "payable"
+        },
+        {
+            "type": "function",
+            "name": "attestBatch",
+            "inputs": [
+                {
+                    "name": "attestations",
+                    "type": "tuple[]",
+                    "internalType": "struct Attestation[]",
+                    "components": [
+                        {
+                            "name": "schemaId",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "linkedAttestationId",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "attestTimestamp",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "revokeTimestamp",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "attester",
+                            "type": "address",
+                            "internalType": "address"
+                        },
+                        {
+                            "name": "validUntil",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "dataLocation",
+                            "type": "uint8",
+                            "internalType": "enum DataLocation"
+                        },
+                        {
+                            "name": "revoked",
+                            "type": "bool",
+                            "internalType": "bool"
+                        },
+                        {
+                            "name": "recipients",
+                            "type": "bytes[]",
+                            "internalType": "bytes[]"
+                        },
+                        {
+                            "name": "data",
+                            "type": "bytes",
+                            "internalType": "bytes"
+                        }
+                    ]
+                },
+                {
+                    "name": "resolverFeesETH",
+                    "type": "uint256[]",
+                    "internalType": "uint256[]"
+                },
+                {
+                    "name": "indexingKeys",
+                    "type": "string[]",
+                    "internalType": "string[]"
+                },
+                {
+                    "name": "delegateSignature",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                },
+                {
+                    "name": "extraData",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "attestationIds",
+                    "type": "uint64[]",
+                    "internalType": "uint64[]"
+                }
+            ],
+            "stateMutability": "payable"
+        },
+        {
+            "type": "function",
+            "name": "attestBatch",
+            "inputs": [
+                {
+                    "name": "attestations",
+                    "type": "tuple[]",
+                    "internalType": "struct Attestation[]",
+                    "components": [
+                        {
+                            "name": "schemaId",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "linkedAttestationId",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "attestTimestamp",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "revokeTimestamp",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "attester",
+                            "type": "address",
+                            "internalType": "address"
+                        },
+                        {
+                            "name": "validUntil",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "dataLocation",
+                            "type": "uint8",
+                            "internalType": "enum DataLocation"
+                        },
+                        {
+                            "name": "revoked",
+                            "type": "bool",
+                            "internalType": "bool"
+                        },
+                        {
+                            "name": "recipients",
+                            "type": "bytes[]",
+                            "internalType": "bytes[]"
+                        },
+                        {
+                            "name": "data",
+                            "type": "bytes",
+                            "internalType": "bytes"
+                        }
+                    ]
+                },
+                {
+                    "name": "resolverFeesERC20Tokens",
+                    "type": "address[]",
+                    "internalType": "contract IERC20[]"
+                },
+                {
+                    "name": "resolverFeesERC20Amount",
+                    "type": "uint256[]",
+                    "internalType": "uint256[]"
+                },
+                {
+                    "name": "indexingKeys",
+                    "type": "string[]",
+                    "internalType": "string[]"
+                },
+                {
+                    "name": "delegateSignature",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                },
+                {
+                    "name": "extraData",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "attestationIds",
+                    "type": "uint64[]",
+                    "internalType": "uint64[]"
+                }
+            ],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "attestBatch",
+            "inputs": [
+                {
+                    "name": "attestations",
+                    "type": "tuple[]",
+                    "internalType": "struct Attestation[]",
+                    "components": [
+                        {
+                            "name": "schemaId",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "linkedAttestationId",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "attestTimestamp",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "revokeTimestamp",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "attester",
+                            "type": "address",
+                            "internalType": "address"
+                        },
+                        {
+                            "name": "validUntil",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "dataLocation",
+                            "type": "uint8",
+                            "internalType": "enum DataLocation"
+                        },
+                        {
+                            "name": "revoked",
+                            "type": "bool",
+                            "internalType": "bool"
+                        },
+                        {
+                            "name": "recipients",
+                            "type": "bytes[]",
+                            "internalType": "bytes[]"
+                        },
+                        {
+                            "name": "data",
+                            "type": "bytes",
+                            "internalType": "bytes"
+                        }
+                    ]
+                },
+                {
+                    "name": "indexingKeys",
+                    "type": "string[]",
+                    "internalType": "string[]"
+                },
+                {
+                    "name": "delegateSignature",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                },
+                {
+                    "name": "extraData",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "attestationIds",
+                    "type": "uint64[]",
+                    "internalType": "uint64[]"
+                }
+            ],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "attestOffchain",
+            "inputs": [
+                {
+                    "name": "offchainAttestationId",
+                    "type": "string",
+                    "internalType": "string"
+                },
+                {
+                    "name": "delegateAttester",
+                    "type": "address",
+                    "internalType": "address"
+                },
+                {
+                    "name": "delegateSignature",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "attestOffchainBatch",
+            "inputs": [
+                {
+                    "name": "offchainAttestationIds",
+                    "type": "string[]",
+                    "internalType": "string[]"
+                },
+                {
+                    "name": "delegateAttester",
+                    "type": "address",
+                    "internalType": "address"
+                },
+                {
+                    "name": "delegateSignature",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "attestationCounter",
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint64",
+                    "internalType": "uint64"
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "getAttestation",
+            "inputs": [
+                {
+                    "name": "attestationId",
+                    "type": "uint64",
+                    "internalType": "uint64"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "tuple",
+                    "internalType": "struct Attestation",
+                    "components": [
+                        {
+                            "name": "schemaId",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "linkedAttestationId",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "attestTimestamp",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "revokeTimestamp",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "attester",
+                            "type": "address",
+                            "internalType": "address"
+                        },
+                        {
+                            "name": "validUntil",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "dataLocation",
+                            "type": "uint8",
+                            "internalType": "enum DataLocation"
+                        },
+                        {
+                            "name": "revoked",
+                            "type": "bool",
+                            "internalType": "bool"
+                        },
+                        {
+                            "name": "recipients",
+                            "type": "bytes[]",
+                            "internalType": "bytes[]"
+                        },
+                        {
+                            "name": "data",
+                            "type": "bytes",
+                            "internalType": "bytes"
+                        }
+                    ]
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "getDelegatedAttestBatchHash",
+            "inputs": [
+                {
+                    "name": "attestations",
+                    "type": "tuple[]",
+                    "internalType": "struct Attestation[]",
+                    "components": [
+                        {
+                            "name": "schemaId",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "linkedAttestationId",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "attestTimestamp",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "revokeTimestamp",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "attester",
+                            "type": "address",
+                            "internalType": "address"
+                        },
+                        {
+                            "name": "validUntil",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "dataLocation",
+                            "type": "uint8",
+                            "internalType": "enum DataLocation"
+                        },
+                        {
+                            "name": "revoked",
+                            "type": "bool",
+                            "internalType": "bool"
+                        },
+                        {
+                            "name": "recipients",
+                            "type": "bytes[]",
+                            "internalType": "bytes[]"
+                        },
+                        {
+                            "name": "data",
+                            "type": "bytes",
+                            "internalType": "bytes"
+                        }
+                    ]
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bytes32",
+                    "internalType": "bytes32"
+                }
+            ],
+            "stateMutability": "pure"
+        },
+        {
+            "type": "function",
+            "name": "getDelegatedAttestHash",
+            "inputs": [
+                {
+                    "name": "attestation",
+                    "type": "tuple",
+                    "internalType": "struct Attestation",
+                    "components": [
+                        {
+                            "name": "schemaId",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "linkedAttestationId",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "attestTimestamp",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "revokeTimestamp",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "attester",
+                            "type": "address",
+                            "internalType": "address"
+                        },
+                        {
+                            "name": "validUntil",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "dataLocation",
+                            "type": "uint8",
+                            "internalType": "enum DataLocation"
+                        },
+                        {
+                            "name": "revoked",
+                            "type": "bool",
+                            "internalType": "bool"
+                        },
+                        {
+                            "name": "recipients",
+                            "type": "bytes[]",
+                            "internalType": "bytes[]"
+                        },
+                        {
+                            "name": "data",
+                            "type": "bytes",
+                            "internalType": "bytes"
+                        }
+                    ]
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bytes32",
+                    "internalType": "bytes32"
+                }
+            ],
+            "stateMutability": "pure"
+        },
+        {
+            "type": "function",
+            "name": "getDelegatedOffchainAttestBatchHash",
+            "inputs": [
+                {
+                    "name": "offchainAttestationIds",
+                    "type": "string[]",
+                    "internalType": "string[]"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bytes32",
+                    "internalType": "bytes32"
+                }
+            ],
+            "stateMutability": "pure"
+        },
+        {
+            "type": "function",
+            "name": "getDelegatedOffchainAttestHash",
+            "inputs": [
+                {
+                    "name": "offchainAttestationId",
+                    "type": "string",
+                    "internalType": "string"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bytes32",
+                    "internalType": "bytes32"
+                }
+            ],
+            "stateMutability": "pure"
+        },
+        {
+            "type": "function",
+            "name": "getDelegatedOffchainRevokeBatchHash",
+            "inputs": [
+                {
+                    "name": "offchainAttestationIds",
+                    "type": "string[]",
+                    "internalType": "string[]"
+                },
+                {
+                    "name": "reasons",
+                    "type": "string[]",
+                    "internalType": "string[]"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bytes32",
+                    "internalType": "bytes32"
+                }
+            ],
+            "stateMutability": "pure"
+        },
+        {
+            "type": "function",
+            "name": "getDelegatedOffchainRevokeHash",
+            "inputs": [
+                {
+                    "name": "offchainAttestationId",
+                    "type": "string",
+                    "internalType": "string"
+                },
+                {
+                    "name": "reason",
+                    "type": "string",
+                    "internalType": "string"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bytes32",
+                    "internalType": "bytes32"
+                }
+            ],
+            "stateMutability": "pure"
+        },
+        {
+            "type": "function",
+            "name": "getDelegatedRegisterHash",
+            "inputs": [
+                {
+                    "name": "schema",
+                    "type": "tuple",
+                    "internalType": "struct Schema",
+                    "components": [
+                        {
+                            "name": "registrant",
+                            "type": "address",
+                            "internalType": "address"
+                        },
+                        {
+                            "name": "revocable",
+                            "type": "bool",
+                            "internalType": "bool"
+                        },
+                        {
+                            "name": "dataLocation",
+                            "type": "uint8",
+                            "internalType": "enum DataLocation"
+                        },
+                        {
+                            "name": "maxValidFor",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "hook",
+                            "type": "address",
+                            "internalType": "contract ISPHook"
+                        },
+                        {
+                            "name": "timestamp",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "data",
+                            "type": "string",
+                            "internalType": "string"
+                        }
+                    ]
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bytes32",
+                    "internalType": "bytes32"
+                }
+            ],
+            "stateMutability": "pure"
+        },
+        {
+            "type": "function",
+            "name": "getDelegatedRevokeBatchHash",
+            "inputs": [
+                {
+                    "name": "attestationIds",
+                    "type": "uint64[]",
+                    "internalType": "uint64[]"
+                },
+                {
+                    "name": "reasons",
+                    "type": "string[]",
+                    "internalType": "string[]"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bytes32",
+                    "internalType": "bytes32"
+                }
+            ],
+            "stateMutability": "pure"
+        },
+        {
+            "type": "function",
+            "name": "getDelegatedRevokeHash",
+            "inputs": [
+                {
+                    "name": "attestationId",
+                    "type": "uint64",
+                    "internalType": "uint64"
+                },
+                {
+                    "name": "reason",
+                    "type": "string",
+                    "internalType": "string"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bytes32",
+                    "internalType": "bytes32"
+                }
+            ],
+            "stateMutability": "pure"
+        },
+        {
+            "type": "function",
+            "name": "getOffchainAttestation",
+            "inputs": [
+                {
+                    "name": "offchainAttestationId",
+                    "type": "string",
+                    "internalType": "string"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "tuple",
+                    "internalType": "struct OffchainAttestation",
+                    "components": [
+                        {
+                            "name": "attester",
+                            "type": "address",
+                            "internalType": "address"
+                        },
+                        {
+                            "name": "timestamp",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        }
+                    ]
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "getSchema",
+            "inputs": [
+                {
+                    "name": "schemaId",
+                    "type": "uint64",
+                    "internalType": "uint64"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "tuple",
+                    "internalType": "struct Schema",
+                    "components": [
+                        {
+                            "name": "registrant",
+                            "type": "address",
+                            "internalType": "address"
+                        },
+                        {
+                            "name": "revocable",
+                            "type": "bool",
+                            "internalType": "bool"
+                        },
+                        {
+                            "name": "dataLocation",
+                            "type": "uint8",
+                            "internalType": "enum DataLocation"
+                        },
+                        {
+                            "name": "maxValidFor",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "hook",
+                            "type": "address",
+                            "internalType": "contract ISPHook"
+                        },
+                        {
+                            "name": "timestamp",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "data",
+                            "type": "string",
+                            "internalType": "string"
+                        }
+                    ]
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "register",
+            "inputs": [
+                {
+                    "name": "schema",
+                    "type": "tuple",
+                    "internalType": "struct Schema",
+                    "components": [
+                        {
+                            "name": "registrant",
+                            "type": "address",
+                            "internalType": "address"
+                        },
+                        {
+                            "name": "revocable",
+                            "type": "bool",
+                            "internalType": "bool"
+                        },
+                        {
+                            "name": "dataLocation",
+                            "type": "uint8",
+                            "internalType": "enum DataLocation"
+                        },
+                        {
+                            "name": "maxValidFor",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "hook",
+                            "type": "address",
+                            "internalType": "contract ISPHook"
+                        },
+                        {
+                            "name": "timestamp",
+                            "type": "uint64",
+                            "internalType": "uint64"
+                        },
+                        {
+                            "name": "data",
+                            "type": "string",
+                            "internalType": "string"
+                        }
+                    ]
+                },
+                {
+                    "name": "delegateSignature",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "schemaId",
+                    "type": "uint64",
+                    "internalType": "uint64"
+                }
+            ],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "revoke",
+            "inputs": [
+                {
+                    "name": "attestationId",
+                    "type": "uint64",
+                    "internalType": "uint64"
+                },
+                {
+                    "name": "reason",
+                    "type": "string",
+                    "internalType": "string"
+                },
+                {
+                    "name": "delegateSignature",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                },
+                {
+                    "name": "extraData",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "revoke",
+            "inputs": [
+                {
+                    "name": "attestationId",
+                    "type": "uint64",
+                    "internalType": "uint64"
+                },
+                {
+                    "name": "reason",
+                    "type": "string",
+                    "internalType": "string"
+                },
+                {
+                    "name": "resolverFeesERC20Token",
+                    "type": "address",
+                    "internalType": "contract IERC20"
+                },
+                {
+                    "name": "resolverFeesERC20Amount",
+                    "type": "uint256",
+                    "internalType": "uint256"
+                },
+                {
+                    "name": "delegateSignature",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                },
+                {
+                    "name": "extraData",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "revoke",
+            "inputs": [
+                {
+                    "name": "attestationId",
+                    "type": "uint64",
+                    "internalType": "uint64"
+                },
+                {
+                    "name": "reason",
+                    "type": "string",
+                    "internalType": "string"
+                },
+                {
+                    "name": "resolverFeesETH",
+                    "type": "uint256",
+                    "internalType": "uint256"
+                },
+                {
+                    "name": "delegateSignature",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                },
+                {
+                    "name": "extraData",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "payable"
+        },
+        {
+            "type": "function",
+            "name": "revokeBatch",
+            "inputs": [
+                {
+                    "name": "attestationIds",
+                    "type": "uint64[]",
+                    "internalType": "uint64[]"
+                },
+                {
+                    "name": "reasons",
+                    "type": "string[]",
+                    "internalType": "string[]"
+                },
+                {
+                    "name": "delegateSignature",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                },
+                {
+                    "name": "extraData",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "revokeBatch",
+            "inputs": [
+                {
+                    "name": "attestationIds",
+                    "type": "uint64[]",
+                    "internalType": "uint64[]"
+                },
+                {
+                    "name": "reasons",
+                    "type": "string[]",
+                    "internalType": "string[]"
+                },
+                {
+                    "name": "resolverFeesETH",
+                    "type": "uint256[]",
+                    "internalType": "uint256[]"
+                },
+                {
+                    "name": "delegateSignature",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                },
+                {
+                    "name": "extraData",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "payable"
+        },
+        {
+            "type": "function",
+            "name": "revokeBatch",
+            "inputs": [
+                {
+                    "name": "attestationIds",
+                    "type": "uint64[]",
+                    "internalType": "uint64[]"
+                },
+                {
+                    "name": "reasons",
+                    "type": "string[]",
+                    "internalType": "string[]"
+                },
+                {
+                    "name": "resolverFeesERC20Tokens",
+                    "type": "address[]",
+                    "internalType": "contract IERC20[]"
+                },
+                {
+                    "name": "resolverFeesERC20Amount",
+                    "type": "uint256[]",
+                    "internalType": "uint256[]"
+                },
+                {
+                    "name": "delegateSignature",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                },
+                {
+                    "name": "extraData",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "revokeOffchain",
+            "inputs": [
+                {
+                    "name": "offchainAttestationId",
+                    "type": "string",
+                    "internalType": "string"
+                },
+                {
+                    "name": "reason",
+                    "type": "string",
+                    "internalType": "string"
+                },
+                {
+                    "name": "delegateSignature",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "revokeOffchainBatch",
+            "inputs": [
+                {
+                    "name": "offchainAttestationIds",
+                    "type": "string[]",
+                    "internalType": "string[]"
+                },
+                {
+                    "name": "reasons",
+                    "type": "string[]",
+                    "internalType": "string[]"
+                },
+                {
+                    "name": "delegateSignature",
+                    "type": "bytes",
+                    "internalType": "bytes"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "schemaCounter",
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint64",
+                    "internalType": "uint64"
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "version",
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "string",
+                    "internalType": "string"
+                }
+            ],
+            "stateMutability": "pure"
+        },
+        {
+            "type": "event",
+            "name": "AttestationMade",
+            "inputs": [
+                {
+                    "name": "attestationId",
+                    "type": "uint64",
+                    "indexed": false,
+                    "internalType": "uint64"
+                },
+                {
+                    "name": "indexingKey",
+                    "type": "string",
+                    "indexed": false,
+                    "internalType": "string"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "event",
+            "name": "AttestationRevoked",
+            "inputs": [
+                {
+                    "name": "attestationId",
+                    "type": "uint64",
+                    "indexed": false,
+                    "internalType": "uint64"
+                },
+                {
+                    "name": "reason",
+                    "type": "string",
+                    "indexed": false,
+                    "internalType": "string"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "event",
+            "name": "OffchainAttestationMade",
+            "inputs": [
+                {
+                    "name": "attestationId",
+                    "type": "string",
+                    "indexed": false,
+                    "internalType": "string"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "event",
+            "name": "OffchainAttestationRevoked",
+            "inputs": [
+                {
+                    "name": "attestationId",
+                    "type": "string",
+                    "indexed": false,
+                    "internalType": "string"
+                },
+                {
+                    "name": "reason",
+                    "type": "string",
+                    "indexed": false,
+                    "internalType": "string"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "event",
+            "name": "SchemaRegistered",
+            "inputs": [
+                {
+                    "name": "schemaId",
+                    "type": "uint64",
+                    "indexed": false,
+                    "internalType": "uint64"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "error",
+            "name": "AttestationAlreadyRevoked",
+            "inputs": []
+        },
+        {
+            "type": "error",
+            "name": "AttestationInvalidDuration",
+            "inputs": []
+        },
+        {
+            "type": "error",
+            "name": "AttestationIrrevocable",
+            "inputs": []
+        },
+        {
+            "type": "error",
+            "name": "AttestationNonexistent",
+            "inputs": []
+        },
+        {
+            "type": "error",
+            "name": "AttestationWrongAttester",
+            "inputs": []
+        },
+        {
+            "type": "error",
+            "name": "InvalidDelegateSignature",
+            "inputs": []
+        },
+        {
+            "type": "error",
+            "name": "LegacySPRequired",
+            "inputs": []
+        },
+        {
+            "type": "error",
+            "name": "OffchainAttestationAlreadyRevoked",
+            "inputs": []
+        },
+        {
+            "type": "error",
+            "name": "OffchainAttestationExists",
+            "inputs": []
+        },
+        {
+            "type": "error",
+            "name": "OffchainAttestationNonexistent",
+            "inputs": []
+        },
+        {
+            "type": "error",
+            "name": "Paused",
+            "inputs": []
+        },
+        {
+            "type": "error",
+            "name": "SchemaNonexistent",
+            "inputs": []
+        },
+        {
+            "type": "error",
+            "name": "SchemaWrongRegistrant",
+            "inputs": []
+        }
+    ]
+}
