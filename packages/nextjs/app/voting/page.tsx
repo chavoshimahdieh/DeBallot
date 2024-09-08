@@ -118,16 +118,16 @@ const VotingPage: NextPage = () => {
             <p className="my-2 font-medium">VotingRegistry:</p>
             <Address address={votingRegistryData.address} />
           </div>
-          {/* <div className="flex justify-center items-center space-x-2 flex-col sm:flex-row">
+          <div className="flex justify-center items-center space-x-2 flex-col sm:flex-row">
             <p className="my-2 font-medium">ActuallyMetDBIC:</p>
             <Address address={actuallyMetDBICData.address} />
           </div>
           <div className="flex justify-center items-center space-x-2 flex-col sm:flex-row">
             <p className="my-2 font-medium">WhitelistHook:</p>
             <Address address={whitelistHookData.address} />
-          </div> */}
-          <div className={`grid grid-cols-1 lg:grid-cols-6 px-6 lg:px-10 lg:gap-12 w-full max-w-7xl my-0 `}>
-            <div className="col-span-5 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10">
+          </div>
+          <div className={`grid grid-cols-1 px-6 lg:px-10 lg:gap-12 w-full max-w-7xl my-0 `}>
+            <div className="col-span-5 grid grid-cols-1 gap-8 lg:gap-10">
               <div className="col-span-1 lg:col-span-2 flex flex-col gap-6">
                 <div className="z-10">
                   <div className="bg-base-100 rounded-3xl shadow-md shadow-secondary border border-base-300 flex flex-col mt-10 relative">
@@ -136,10 +136,6 @@ const VotingPage: NextPage = () => {
                         <p className="my-0 text-sm">admin</p>
                       </div>
                     </div>
-                    {/* <ContractVariables
-                      refreshDisplayVariables={refreshDisplayVariables}
-                      deployedContractData={deployedContractData}
-                    /> */}
                     <div className="p-5 divide-y divide-base-300">
                       <h1>votingFactoryData</h1>
                       <BasicWriteOnlyFunctionForm

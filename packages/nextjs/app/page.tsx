@@ -49,8 +49,8 @@ const Home: NextPage = () => {
             objectFit="cover"
             className="rounded-lg"
           />
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-30 z-20 ">
-            <p className="text-white bg-blue-700 text-lg font-semibold rounded-lg px-2 opacity-1 bg-opacity-80">
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-30">
+            <p className="text-white bg-gray-700 text-lg font-semibold rounded-lg px-2 opacity-1 bg-opacity-30">
               Empowering Secure, Transparent, and Private Voting
             </p>
           </div>
