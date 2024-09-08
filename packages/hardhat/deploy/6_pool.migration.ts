@@ -9,7 +9,7 @@ import {
   VotingRegistry__factory,
 } from "@ethers-v6";
 
-import { getDeployedVerifierContract } from "@deploy-helper";
+import { getDeployedVerifierContract, saveDeployedAddress } from "@deploy-helper";
 
 export = async (deployer: Deployer) => {
   let votingRegistry = await deployer.deploy(VotingRegistry__factory);
@@ -46,4 +46,9 @@ export = async (deployer: Deployer) => {
     ["Simple Registration", await registration.getAddress()],
     ["VoteVerifier", await voteVerifier.getAddress()],
   );
+  saveDeployedAddress("registration", await registration.getAddress());
+  saveDeployedAddress("voting", await voting.getAddress());
+  saveDeployedAddress("votingFactory", await votingFactory.getAddress());
+  saveDeployedAddress("votingRegistry", await votingRegistry.getAddress());
+  saveDeployedAddress("voteVerifier", await voteVerifier.getAddress());
 };

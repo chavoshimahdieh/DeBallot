@@ -1,0 +1,8 @@
+{
+  "GeneratedRegistrationVerifier": "0x683d9CDD3239E0e01E8dC6315fA50AD92aB71D2d",
+  "registration": "0x95775fD3Afb1F4072794CA4ddA27F2444BCf8Ac3",
+  "voting": "0xd9fEc8238711935D6c8d79Bef2B9546ef23FC046",
+  "votingFactory": "0x5e6CB7E728E1C320855587E1D9C6F7972ebdD6D5",
+  "votingRegistry": "0x0a17FabeA4633ce714F1Fa4a2dcA62C3bAc4758d",
+  "voteVerifier": "0xeAd789bd8Ce8b9E94F5D0FCa99F8787c7e758817"
+}

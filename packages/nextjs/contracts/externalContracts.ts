@@ -15,8 +15,47 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const externalContracts = {
   31337: {
     // hardhat
+    GeneratedRegistrationVerifier: {
+      address: "0x720472c8ce72c2A2D711333e064ABD3E6BbEAdd3",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "uint256[2]",
+              name: "_pA",
+              type: "uint256[2]",
+            },
+            {
+              internalType: "uint256[2][2]",
+              name: "_pB",
+              type: "uint256[2][2]",
+            },
+            {
+              internalType: "uint256[2]",
+              name: "_pC",
+              type: "uint256[2]",
+            },
+            {
+              internalType: "uint256[13]",
+              name: "_pubSignals",
+              type: "uint256[13]",
+            },
+          ],
+          name: "verifyProof",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+      ],
+    },
     Registration: {
-      address: "0xCace1b78160AE76398F486c8a18044da0d66d86D",
+      address: "0x9BcC604D4381C5b0Ad12Ff3Bf32bEdE063416BC7",
       abi: [
         {
           inputs: [
@@ -681,7 +720,7 @@ const externalContracts = {
       ],
     },
     Voting: {
-      address: "0xD5ac451B0c50B9476107823Af206eD814a2e2580",
+      address: "0x63fea6E447F120B8Faf85B53cdaD8348e645D80E",
       abi: [
         {
           inputs: [
@@ -1115,7 +1154,7 @@ const externalContracts = {
       ],
     },
     VotingFactory: {
-      address: "0xe8D2A1E88c91DCd5433208d4152Cc4F399a7e91d",
+      address: "0xC66AB83418C20A65C3f8e83B3d11c8C3a6097b6F",
       abi: [
         {
           inputs: [],
@@ -1404,7 +1443,7 @@ const externalContracts = {
       ],
     },
     VotingRegistry: {
-      address: "0x720472c8ce72c2A2D711333e064ABD3E6BbEAdd3",
+      address: "0x8F4ec854Dd12F1fe79500a1f53D0cbB30f9b6134",
       abi: [
         {
           inputs: [],
@@ -1961,47 +2000,8 @@ const externalContracts = {
         },
       ],
     },
-    GeneratedRegistrationVerifier: {
-      address: "0x720472c8ce72c2A2D711333e064ABD3E6BbEAdd3",
-      abi: [
-        {
-          inputs: [
-            {
-              internalType: "uint256[2]",
-              name: "_pA",
-              type: "uint256[2]",
-            },
-            {
-              internalType: "uint256[2][2]",
-              name: "_pB",
-              type: "uint256[2][2]",
-            },
-            {
-              internalType: "uint256[2]",
-              name: "_pC",
-              type: "uint256[2]",
-            },
-            {
-              internalType: "uint256[13]",
-              name: "_pubSignals",
-              type: "uint256[13]",
-            },
-          ],
-          name: "verifyProof",
-          outputs: [
-            {
-              internalType: "bool",
-              name: "",
-              type: "bool",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-      ],
-    },
     VoteVerifier: {
-      address: "0x720472c8ce72c2A2D711333e064ABD3E6BbEAdd3",
+      address: "0xaC47e91215fb80462139756f43438402998E4A3a",
       abi: [
         {
           inputs: [
@@ -2517,6 +2517,45 @@ const externalContracts = {
   },
   11155111: {
     // sepolia
+    GeneratedRegistrationVerifier: {
+      address: "0x720472c8ce72c2A2D711333e064ABD3E6BbEAdd3",
+      abi: [
+        {
+          inputs: [
+            {
+              internalType: "uint256[2]",
+              name: "_pA",
+              type: "uint256[2]",
+            },
+            {
+              internalType: "uint256[2][2]",
+              name: "_pB",
+              type: "uint256[2][2]",
+            },
+            {
+              internalType: "uint256[2]",
+              name: "_pC",
+              type: "uint256[2]",
+            },
+            {
+              internalType: "uint256[13]",
+              name: "_pubSignals",
+              type: "uint256[13]",
+            },
+          ],
+          name: "verifyProof",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+      ],
+    },
     Registration: {
       address: "0xCace1b78160AE76398F486c8a18044da0d66d86D",
       abi: [

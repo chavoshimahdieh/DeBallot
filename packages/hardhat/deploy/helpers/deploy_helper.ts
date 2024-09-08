@@ -1,5 +1,6 @@
 import { Deployer } from "@solarity/hardhat-migrate";
-
+import fs from "fs";
+import path from "path";
 import { Config, isZeroAddr } from "./config_parser";
 
 const { poseidonContract } = require("circomlibjs");
@@ -12,6 +13,40 @@ import {
   RegisterVerifier__factory,
   GeneratedRegistrationVerifier__factory,
 } from "@ethers-v6";
+
+const deployedAddressesPath = path.resolve(
+  __dirname,
+  "../../../nextjs/contracts/deployedAddresses.json",
+);
+
+// Function to create the file if it doesn't exist
+const ensureFileExists = (filePath: string) => {
+  if (!fs.existsSync(filePath)) {
+    // Create the directory if it does not exist
+    fs.mkdirSync(path.dirname(filePath), { recursive: true });
+    // Create an empty JSON file
+    fs.writeFileSync(filePath, JSON.stringify({}), { encoding: "utf8" });
+  }
+};
+
+// Function to save new deployed addresses
+export const saveDeployedAddress = (contractName: string, address: string) => {
+  ensureFileExists(deployedAddressesPath); // Ensure the file exists before reading/writing
+
+  let addresses: Record<string, string> = {};
+  if (fs.existsSync(deployedAddressesPath)) {
+    addresses = JSON.parse(fs.readFileSync(deployedAddressesPath, "utf8")) as Record<string, string>;
+  }
+
+  addresses[contractName] = address;
+  fs.writeFileSync(deployedAddressesPath, JSON.stringify(addresses, null, 2), { encoding: "utf8" });
+};
+
+// Function to clear old addresses from JSON
+export const clearOldAddresses = () => {
+  ensureFileExists(deployedAddressesPath); // Ensure the file exists before clearing
+  fs.writeFileSync(deployedAddressesPath, JSON.stringify({}), { encoding: "utf8" });
+};
 
 export async function deployPoseidons(deployer: Deployer, poseidonSizeParams: number[]) {
   poseidonSizeParams.forEach((size) => {
@@ -86,6 +121,7 @@ async function deployMTPValidator(
 
   if (isZeroAddr(queryMTPVerifierAddress)) {
     queryMTPVerifierAddress = await (await deployer.deploy(GeneratedRegistrationVerifier__factory)).getAddress();
+    saveDeployedAddress("GeneratedRegistrationVerifier", queryMTPVerifierAddress);
   }
 
   const queryMTPValidatorImpl = await deployer.deploy(QueryMTPValidator__factory);
@@ -117,7 +153,6 @@ async function deployLightweightState(deployer: Deployer, config: Config) {
       [await lightweightStateImpl.getAddress(), "0x"],
       { name: "LightweightState Proxy" },
     );
-
     const lightweightState = await deployer.deployed(
       LightweightState__factory,
       await lightweightStateProxy.getAddress(),
