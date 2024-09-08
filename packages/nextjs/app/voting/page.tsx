@@ -99,6 +99,82 @@ const VotingPage: NextPage = () => {
     <>
       <div className="flex items-center flex-col flex-grow pt-10">
         <div className="px-5">
+          <div className="bg-base-100 rounded-3xl shadow-md shadow-secondary border border-base-300 flex flex-col mt-10 relative">
+            <div className="h-[5rem] w-[5.5rem] bg-base-300 absolute self-start rounded-[22px] -top-[38px] -left-[1px] -z-10 py-[0.65rem] shadow-lg shadow-base-300">
+              <div className="flex items-center justify-center space-x-2">
+                <p className="my-0 text-sm">Sign protocol</p>
+              </div>
+            </div>
+            <div className="p-5 divide-y divide-base-300">
+              <h1>whitelistHookData</h1>
+              <BasicWriteOnlyFunctionForm
+                contract={whitelistHookData}
+                name={"setSPInstance"}
+                onChange={triggerRefreshDisplayVariables}
+                inheritedFrom={undefined}
+                formatName={false}
+              />
+              <BasicWriteOnlyFunctionForm
+                contract={whitelistHookData}
+                name={"setSchemaID"}
+                onChange={triggerRefreshDisplayVariables}
+                inheritedFrom={undefined}
+                formatName={false}
+              />
+              <BasicWriteOnlyFunctionForm
+                contract={whitelistHookData}
+                name={"confirmMetDBIC"}
+                onChange={triggerRefreshDisplayVariables}
+                inheritedFrom={undefined}
+                formatName={false}
+              />
+              <BasicWriteOnlyFunctionForm
+                contract={whitelistHookData}
+                name={"claimMetDBIC"}
+                onChange={triggerRefreshDisplayVariables}
+                inheritedFrom={undefined}
+                formatName={false}
+              />
+              <h1>Read</h1>
+              <BasicReadOnlyFunctionForm
+                contract={actuallyMetDBICData}
+                name={"didReceiveAttestation"}
+                inheritedFrom={undefined}
+                formatName={false}
+              />
+              <BasicReadOnlyFunctionForm
+                contract={actuallyMetDBICData}
+                name={"didReceiveRevocation"}
+                inheritedFrom={undefined}
+                formatName={false}
+              />
+            </div>
+          </div>
+          <div className="bg-base-100 rounded-3xl shadow-md shadow-secondary border border-base-300 flex flex-col mt-10 relative">
+            <div className="h-[5rem] w-[5.5rem] bg-base-300 absolute self-start rounded-[22px] -top-[38px] -left-[1px] -z-10 py-[0.65rem] shadow-lg shadow-base-300">
+              <div className="flex items-center justify-center space-x-2">
+                <p className="my-0 text-sm">voter</p>
+              </div>
+            </div>
+            <div className="p-5 divide-y divide-base-300">
+              claimMetDBIC
+              <br />
+              <BasicWriteOnlyFunctionForm
+                contract={registrationData}
+                name={"register"}
+                onChange={triggerRefreshDisplayVariables}
+                inheritedFrom={undefined}
+                formatName={false}
+              />
+              <BasicWriteOnlyFunctionForm
+                contract={votingData}
+                name={"vote"}
+                onChange={triggerRefreshDisplayVariables}
+                inheritedFrom={undefined}
+                formatName={false}
+              />
+            </div>
+          </div>
           <h1 className="text-center">
             <span className="block text-4xl font-bold">Voting</span>
           </h1>
@@ -185,82 +261,6 @@ const VotingPage: NextPage = () => {
                       <CopyableText
                         text="remark: , registration: , votingStart: , votingPeriod: ,
                       candidates"
-                      />
-                    </div>
-                  </div>
-                  <div className="bg-base-100 rounded-3xl shadow-md shadow-secondary border border-base-300 flex flex-col mt-10 relative">
-                    <div className="h-[5rem] w-[5.5rem] bg-base-300 absolute self-start rounded-[22px] -top-[38px] -left-[1px] -z-10 py-[0.65rem] shadow-lg shadow-base-300">
-                      <div className="flex items-center justify-center space-x-2">
-                        <p className="my-0 text-sm">Sign protocol</p>
-                      </div>
-                    </div>
-                    <div className="p-5 divide-y divide-base-300">
-                      <h1>whitelistHookData</h1>
-                      <BasicWriteOnlyFunctionForm
-                        contract={whitelistHookData}
-                        name={"setSPInstance"}
-                        onChange={triggerRefreshDisplayVariables}
-                        inheritedFrom={undefined}
-                        formatName={false}
-                      />
-                      <BasicWriteOnlyFunctionForm
-                        contract={whitelistHookData}
-                        name={"setSchemaID"}
-                        onChange={triggerRefreshDisplayVariables}
-                        inheritedFrom={undefined}
-                        formatName={false}
-                      />
-                      <BasicWriteOnlyFunctionForm
-                        contract={whitelistHookData}
-                        name={"confirmMetDBIC"}
-                        onChange={triggerRefreshDisplayVariables}
-                        inheritedFrom={undefined}
-                        formatName={false}
-                      />
-                      <BasicWriteOnlyFunctionForm
-                        contract={whitelistHookData}
-                        name={"claimMetDBIC"}
-                        onChange={triggerRefreshDisplayVariables}
-                        inheritedFrom={undefined}
-                        formatName={false}
-                      />
-                      <h1>Read</h1>
-                      <BasicReadOnlyFunctionForm
-                        contract={actuallyMetDBICData}
-                        name={"didReceiveAttestation"}
-                        inheritedFrom={undefined}
-                        formatName={false}
-                      />
-                      <BasicReadOnlyFunctionForm
-                        contract={actuallyMetDBICData}
-                        name={"didReceiveRevocation"}
-                        inheritedFrom={undefined}
-                        formatName={false}
-                      />
-                    </div>
-                  </div>
-                  <div className="bg-base-100 rounded-3xl shadow-md shadow-secondary border border-base-300 flex flex-col mt-10 relative">
-                    <div className="h-[5rem] w-[5.5rem] bg-base-300 absolute self-start rounded-[22px] -top-[38px] -left-[1px] -z-10 py-[0.65rem] shadow-lg shadow-base-300">
-                      <div className="flex items-center justify-center space-x-2">
-                        <p className="my-0 text-sm">voter</p>
-                      </div>
-                    </div>
-                    <div className="p-5 divide-y divide-base-300">
-                      claimMetDBIC
-                      <br />
-                      <BasicWriteOnlyFunctionForm
-                        contract={registrationData}
-                        name={"register"}
-                        onChange={triggerRefreshDisplayVariables}
-                        inheritedFrom={undefined}
-                        formatName={false}
-                      />
-                      <BasicWriteOnlyFunctionForm
-                        contract={votingData}
-                        name={"vote"}
-                        onChange={triggerRefreshDisplayVariables}
-                        inheritedFrom={undefined}
-                        formatName={false}
                       />
                     </div>
                   </div>
