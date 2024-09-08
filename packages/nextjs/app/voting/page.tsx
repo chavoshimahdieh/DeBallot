@@ -161,6 +161,11 @@ const VotingPage: NextPage = () => {
                         inheritedFrom={undefined}
                         formatName={false}
                       />
+                      voting data Params:{" "}
+                      <CopyableText
+                        text="remark: , registration: , votingStart: , votingPeriod: ,
+                      candidates"
+                      />
                       <BasicWriteOnlyFunctionForm
                         contract={votingFactoryData}
                         name={"createRegistration"}
@@ -168,12 +173,22 @@ const VotingPage: NextPage = () => {
                         inheritedFrom={undefined}
                         formatName={false}
                       />
+                      voting data Params:{" "}
+                      <CopyableText
+                        text="remark: , registration: , votingStart: , votingPeriod: ,
+                      candidates"
+                      />
                       <BasicWriteOnlyFunctionForm
                         contract={votingFactoryData}
                         name={"createRegistrationWithSalt"}
                         onChange={triggerRefreshDisplayVariables}
                         inheritedFrom={undefined}
                         formatName={false}
+                      />
+                      voting data Params:{" "}
+                      <CopyableText
+                        text="remark: , registration: , votingStart: , votingPeriod: ,
+                      candidates"
                       />
                     </div>
                   </div>
