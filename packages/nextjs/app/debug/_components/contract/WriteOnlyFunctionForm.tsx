@@ -33,7 +33,7 @@ export const WriteOnlyFunctionForm = ({
   onChange,
   contractAddress,
   inheritedFrom,
-  formatName = true,
+  formatName = false,
 }: WriteOnlyFunctionFormProps) => {
   const [form, setForm] = useState<Record<string, any>>(() => getInitialFormState(abiFunction));
   const [txValue, setTxValue] = useState<string | bigint>("");

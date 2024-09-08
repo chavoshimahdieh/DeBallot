@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Address, TransactionReceipt } from "viem";
+import { TransactionReceipt } from "viem";
 import { useAccount, useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import {
   ContractInput,
@@ -22,7 +22,6 @@ type BasicWriteOnlyFunctionFormProps = {
   contract: any;
   name: string;
   onChange: () => void;
-  contractAddress: Address;
   inheritedFrom?: string;
   formatName?: boolean;
 };
@@ -31,7 +30,6 @@ export const BasicWriteOnlyFunctionForm = ({
   contract,
   name,
   onChange,
-  contractAddress,
   inheritedFrom,
   formatName = true,
 }: BasicWriteOnlyFunctionFormProps) => {
@@ -50,7 +48,7 @@ export const BasicWriteOnlyFunctionForm = ({
       try {
         const makeWriteWithParams = () =>
           writeContractAsync({
-            address: contractAddress,
+            address: contract.address,
             functionName: abiFunction.name,
             abi: contract.abi,
             args: getParsedContractFunctionArgs(form),

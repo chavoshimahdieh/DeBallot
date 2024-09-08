@@ -30,7 +30,7 @@ export const ReadOnlyFunctionForm = ({
   abiFunction,
   inheritedFrom,
   abi,
-  formatName = true,
+  formatName = false,
 }: ReadOnlyFunctionFormProps) => {
   const [form, setForm] = useState<Record<string, any>>(() => getInitialFormState(abiFunction));
   const [result, setResult] = useState<unknown>();

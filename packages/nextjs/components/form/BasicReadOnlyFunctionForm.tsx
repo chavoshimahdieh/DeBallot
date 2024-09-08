@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Abi } from "abitype";
 import { Address } from "viem";
 import { useReadContract } from "wagmi";
 import {
@@ -22,7 +21,6 @@ type BasicReadOnlyFunctionFormProps = {
   contract: any;
   name: string;
   inheritedFrom?: string;
-  abi: Abi;
   formatName?: boolean;
 };
 
@@ -30,7 +28,6 @@ export const BasicReadOnlyFunctionForm = ({
   contract,
   name,
   inheritedFrom,
-  abi,
   formatName = true,
 }: BasicReadOnlyFunctionFormProps) => {
   const abiFunction = getAbiFunction(contract, name);
