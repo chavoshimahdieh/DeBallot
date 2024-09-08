@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import type { NextPage } from "next";
 import { useAccount } from "wagmi";
-import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { ShieldCheckIcon, AcademicCapIcon } from "@heroicons/react/24/outline";
 import { Address } from "~~/components/scaffold-eth";
 
 const Home: NextPage = () => {
@@ -12,53 +13,70 @@ const Home: NextPage = () => {
   return (
     <>
       <div className="flex items-center flex-col flex-grow pt-10">
-        <div className="px-5">
-          <h1 className="text-center">
-            <span className="block text-2xl mb-2">Welcome to</span>
-            <span className="block text-4xl font-bold">Scaffold-ETH 2</span>
-          </h1>
-          <div className="flex justify-center items-center space-x-2 flex-col sm:flex-row">
+        <div className="relative w-full h-64">
+          {/* First Banner Image */}
+          <Image
+            src="/people.jpeg"
+            alt="People collaborating on DeBallot"
+            layout="fill"
+            objectFit="cover"
+            className="rounded-lg"
+          />
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-40">
+            <h1 className="text-white text-4xl font-bold">Welcome to DeBallot</h1>
+          </div>
+        </div>
+
+        <div className="px-5 mt-10">
+          <p className="text-center text-lg mt-4 max-w-2xl">
+            DeBallot is a cutting-edge decentralized voting system leveraging Zero-Knowledge (ZK) technology and the
+            sing-protocol for user verification. Our platform ensures secure, anonymous, and transparent voting
+            processes, making every vote count without compromising privacy. Join us in redefining democracy with
+            blockchain!
+          </p>
+          <div className="flex justify-center items-center space-x-2 flex-col sm:flex-row mt-6">
             <p className="my-2 font-medium">Connected Address:</p>
             <Address address={connectedAddress} />
           </div>
-          <p className="text-center text-lg">
-            Get started by editing{" "}
-            <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
-              packages/nextjs/app/page.tsx
-            </code>
-          </p>
-          <p className="text-center text-lg">
-            Edit your smart contract{" "}
-            <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
-              YourContract.sol
-            </code>{" "}
-            in{" "}
-            <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
-              packages/hardhat/contracts
-            </code>
-          </p>
+        </div>
+
+        <div className="relative w-full h-64 mt-16">
+          {/* Second Banner Image */}
+          <Image
+            src="/simple_people.jpeg"
+            alt="Simplified people illustration for DeBallot"
+            layout="fill"
+            objectFit="cover"
+            className="rounded-lg"
+          />
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-30 z-20 ">
+            <p className="text-white bg-blue-700 text-lg font-semibold rounded-lg px-2 opacity-1 bg-opacity-80">
+              Empowering Secure, Transparent, and Private Voting
+            </p>
+          </div>
         </div>
 
         <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
           <div className="flex justify-center items-center gap-12 flex-col sm:flex-row">
             <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
-              <BugAntIcon className="h-8 w-8 fill-secondary" />
+              <ShieldCheckIcon className="h-8 w-8 fill-secondary" />
               <p>
-                Tinker with your smart contract using the{" "}
-                <Link href="/debug" passHref className="link">
-                  Debug Contracts
+                Secure your votes with our advanced Zero-Knowledge proof mechanism. Learn more in the{" "}
+                <Link href="/zk-proof" passHref className="link">
+                  ZK Proofs
                 </Link>{" "}
-                tab.
+                section.
               </p>
             </div>
             <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
-              <MagnifyingGlassIcon className="h-8 w-8 fill-secondary" />
+              <AcademicCapIcon className="h-8 w-8 fill-secondary" />
               <p>
-                Explore your local transactions with the{" "}
-                <Link href="/blockexplorer" passHref className="link">
-                  Block Explorer
+                Explore the unique sing-protocol used for verifying users while keeping their identities confidential.
+                Check out our{" "}
+                <Link href="/sing-protocol" passHref className="link">
+                  Sing Protocol
                 </Link>{" "}
-                tab.
+                guide.
               </p>
             </div>
           </div>
